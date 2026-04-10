@@ -1,0 +1,38 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 3rem 2.5rem;
+  /* Additional depth for auth panel */
+  box-shadow: var(--shadow-lg);
+}
+
+.auth-header h2 {
+  font-size: 2.25rem;
+  margin-top: 0.5rem;
+  letter-spacing: -0.04em;
+}
+
+.auth-header .icon-wrapper {
+  color: var(--accent-primary);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+}

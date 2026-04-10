@@ -1,0 +1,130 @@
+.landing-page {
+  min-height: 100vh;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-nav {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.logo-icon {
+  color: var(--accent-primary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.hero {
+  flex: 1;
+  display: flex;
+  max-width: 1000px;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin-bottom: 2.5rem;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+.features-grid {
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.feature-card {
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.icon-wrapper {
+  background: var(--accent-light);
+  color: var(--accent-primary);
+  padding: 1rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .landing-nav {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+  
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero {
+    margin: 2rem auto;
+  }
+
+  .hero-title { 
+    font-size: clamp(2rem, 8vw, 2.5rem); 
+    line-height: 1.2;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+
+  .features-grid { 
+    grid-template-columns: 1fr; 
+    margin-top: 3rem;
+  }
+
+  .hero-cta { 
+    flex-direction: column; 
+    width: 100%; 
+    padding: 0 1.5rem;
+  }
+  
+  .btn-lg {
+    width: 100%;
+    text-align: center;
+  }
+}
+
