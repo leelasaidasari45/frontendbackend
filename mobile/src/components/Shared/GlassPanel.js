@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Theme } from '../styles/theme';
+import { Theme } from '../../styles/theme';
 
 const GlassPanel = ({ children, style }) => {
   return (
