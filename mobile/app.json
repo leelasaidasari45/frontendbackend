@@ -33,11 +33,6 @@
     "plugins": [
       "expo-secure-store",
       "expo-notifications"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "YOUR_PROJECT_ID"
-      }
-    }
+    ]
   }
 }
