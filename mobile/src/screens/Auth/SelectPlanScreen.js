@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Alert, ActivityIndicator } from 'react-native';
 import { Theme, globalStyles } from '../../styles/theme';
-import { Crown, Check, Zap, ShieldCheck, Loader2 } from 'lucide-react-native';
+import { Crown, Check, Zap, ShieldCheck } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import apiClient from '../../api/apiClient';
 
@@ -15,9 +15,7 @@ const SelectPlanScreen = ({ navigation }) => {
       
       if (res.data.isMock) {
         Alert.alert('Success', 'Subscription setup initiated! (Mock Mode)');
-        // In real flow, open Paytm app or webview
         setTimeout(() => {
-          // We would normally wait for callback, but for now we navigate
           navigation.navigate('OwnerRoot');
         }, 1500);
       }
@@ -34,56 +32,65 @@ const SelectPlanScreen = ({ navigation }) => {
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.header}>
             <View style={styles.iconCircle}>
-                <Crown size={40} color={Theme.colors.background} />
+              <Crown size={40} color={Theme.colors.background} />
             </View>
-            <Text style={styles.title}>The Future of {'\n'}<Text style={{color: Theme.colors.primary}}>Hostel Management</Text></Text>
-            <Text style={styles.subtitle}>Start your 3-month free trial today. Experience elite automation.</Text>
+            <Text style={styles.title}>
+              The Future of {'\n'}
+              <Text style={{ color: Theme.colors.primary }}>Hostel Management</Text>
+            </Text>
+            <Text style={styles.subtitle}>
+              Start your 3-month free trial today. Experience elite automation.
+            </Text>
           </View>
 
           <View style={[globalStyles.glassPanel, styles.planCard]}>
             <View style={styles.planHeader}>
-                <View>
-                    <Text style={styles.planName}>Premium SaaS</Text>
-                    <Text style={styles.planDesc}>Complete automation suite</Text>
-                </View>
-                <View style={styles.priceContainer}>
-                    <Text style={styles.currency}>₹</Text>
-                    <Text style={styles.price}>999</Text>
-                    <Text style={styles.duration}>/mo</Text>
-                </View>
+              <View>
+                <Text style={styles.planName}>Premium SaaS</Text>
+                <Text style={styles.planDesc}>Complete automation suite</Text>
+              </View>
+              <View style={styles.priceContainer}>
+                <Text style={styles.currency}>₹</Text>
+                <Text style={styles.price}>999</Text>
+                <Text style={styles.duration}>/mo</Text>
+              </View>
             </View>
 
             <View style={styles.trialBadge}>
-                <Zap size={16} color={Theme.colors.primary} />
-                <Text style={styles.trialText}>3 MONTHS FREE TRIAL</Text>
+              <Zap size={16} color={Theme.colors.primary} />
+              <Text style={styles.trialText}>3 MONTHS FREE TRIAL</Text>
             </View>
 
             <View style={styles.features}>
-                {[
-                    'Unlimited Hostels & Rooms',
-                    'QR-Based Instant Onboarding',
-                    'Automatic Rent Reminders',
-                    'Advanced Analytics & Reports',
-                    'Complaint Management'
-                ].map((f, i) => (
-                    <View key={i} style={styles.featureRow}>
-                        <Check size={18} color={Theme.colors.primary} />
-                        <Text style={styles.featureText}>{f}</Text>
-                    </View>
-                ))}
+              {[
+                'Unlimited Hostels & Rooms',
+                'QR-Based Instant Onboarding',
+                'Automatic Rent Reminders',
+                'Advanced Analytics & Reports',
+                'Complaint Management'
+              ].map((f, i) => (
+                <View key={i} style={styles.featureRow}>
+                  <Check size={18} color={Theme.colors.primary} />
+                  <Text style={styles.featureText}>{f}</Text>
+                </View>
+              ))}
             </View>
 
-            <TouchableOpacity 
-                style={[styles.payBtn, loading && styles.disabledBtn]} 
-                onPress={handleSubscribe}
-                disabled={loading}
+            <TouchableOpacity
+              style={[styles.payBtn, loading && styles.disabledBtn]}
+              onPress={handleSubscribe}
+              disabled={loading}
             >
-                {loading ? <Loader2 size={24} color="#fff" /> : <Text style={styles.payBtnText}>Set Up Autopay with Paytm</Text>}
+              {loading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.payBtnText}>Set Up Autopay with Paytm</Text>
+              )}
             </TouchableOpacity>
 
             <View style={styles.securityRow}>
-                <ShieldCheck size={14} color={Theme.colors.textMuted} />
-                <Text style={styles.securityText}>Secured by Paytm. Cancel anytime.</Text>
+              <ShieldCheck size={14} color={Theme.colors.textMuted} />
+              <Text style={styles.securityText}>Secured by Paytm. Cancel anytime.</Text>
             </View>
           </View>
 
@@ -102,39 +109,39 @@ const styles = StyleSheet.create({
   scrollContent: { padding: Theme.spacing.lg, alignItems: 'center' },
   header: { alignItems: 'center', marginBottom: 30, marginTop: 20 },
   iconCircle: {
-      width: 80,
-      height: 80,
-      borderRadius: 40,
-      backgroundColor: '#f59e0b',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: 20,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#f59e0b',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
   },
   title: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      color: '#fff',
-      textAlign: 'center',
-      lineHeight: 34,
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    lineHeight: 34,
   },
   subtitle: {
-      fontSize: 14,
-      color: Theme.colors.textMuted,
-      textAlign: 'center',
-      marginTop: 10,
-      paddingHorizontal: 20,
+    fontSize: 14,
+    color: Theme.colors.textMuted,
+    textAlign: 'center',
+    marginTop: 10,
+    paddingHorizontal: 20,
   },
   planCard: {
-      width: '100%',
-      padding: 24,
-      borderWidth: 2,
-      borderColor: Theme.colors.primary,
+    width: '100%',
+    padding: 24,
+    borderWidth: 2,
+    borderColor: Theme.colors.primary,
   },
   planHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
   },
   planName: { fontSize: 20, fontWeight: 'bold', color: '#fff' },
   planDesc: { fontSize: 13, color: Theme.colors.textMuted },
@@ -143,39 +150,39 @@ const styles = StyleSheet.create({
   price: { color: '#fff', fontSize: 32, fontWeight: 'bold' },
   duration: { color: Theme.colors.textMuted, fontSize: 14 },
   trialBadge: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'rgba(99, 102, 241, 0.1)',
-      padding: 10,
-      borderRadius: Theme.borderRadius.md,
-      borderWidth: 1,
-      borderColor: Theme.colors.primary,
-      borderStyle: 'dashed',
-      marginBottom: 20,
-      gap: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+    padding: 10,
+    borderRadius: Theme.borderRadius.md,
+    borderWidth: 1,
+    borderColor: Theme.colors.primary,
+    borderStyle: 'dashed',
+    marginBottom: 20,
+    gap: 8,
   },
   trialText: { color: Theme.colors.primary, fontWeight: 'bold', fontSize: 13 },
   features: { marginBottom: 24 },
   featureRow: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 12 },
   featureText: { color: '#fff', fontSize: 15 },
   payBtn: {
-      backgroundColor: Theme.colors.primary,
-      height: 55,
-      borderRadius: Theme.borderRadius.md,
-      justifyContent: 'center',
-      alignItems: 'center',
+    backgroundColor: Theme.colors.primary,
+    height: 55,
+    borderRadius: Theme.borderRadius.md,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   disabledBtn: { opacity: 0.7 },
   payBtnText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
   securityRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 12 },
   securityText: { color: Theme.colors.textMuted, fontSize: 12 },
   footerNote: {
-      fontSize: 12,
-      color: Theme.colors.textMuted,
-      textAlign: 'center',
-      marginTop: 20,
-      lineHeight: 18,
+    fontSize: 12,
+    color: Theme.colors.textMuted,
+    textAlign: 'center',
+    marginTop: 20,
+    lineHeight: 18,
   },
 });
 
