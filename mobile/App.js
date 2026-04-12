@@ -11,6 +11,9 @@ import { HostelProvider } from './src/context/HostelContext';
 import { Theme } from './src/styles/theme';
 
 import LoginScreen from './src/screens/Auth/LoginScreen';
+import RegisterScreen from './src/screens/Auth/RegisterScreen';
+import SelectPlanScreen from './src/screens/Auth/SelectPlanScreen';
+import MobileSplash from './src/screens/Auth/MobileSplash';
 import TenantDashboard from './src/screens/Dashboard/TenantDashboard';
 import OwnerOverview from './src/screens/Owner/OwnerOverview';
 import RoomsScreen from './src/screens/Owner/RoomsScreen';
@@ -82,8 +85,9 @@ const NavigationProvider = () => {
     return <MobileSplash />;
   }
 
-  // Custom logic to handle tenant redirection if not in a hostel
+  // Custom logic to handle tenant redirection if not in a hostel, or Owner payment setup
   const getInitialRoute = () => {
+    if (user.role === 'owner' && !user.payment_setup_complete) return 'SelectPlan';
     if (user.role === 'tenant' && !user.hostel_id) return 'JoinHostel';
     return user.role === 'owner' ? 'OwnerRoot' : 'TenantDashboard';
   };
@@ -99,12 +103,19 @@ const NavigationProvider = () => {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
           </>
-        ) : user.role === 'owner' ? (
-          <Stack.Screen name="OwnerRoot" component={OwnerNavigator} />
         ) : (
           <>
-            <Stack.Screen name="TenantDashboard" component={TenantDashboard} />
-            <Stack.Screen name="JoinHostel" component={JoinHostel} />
+            {user.role === 'owner' ? (
+              <>
+                <Stack.Screen name="SelectPlan" component={SelectPlanScreen} />
+                <Stack.Screen name="OwnerRoot" component={OwnerNavigator} />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name="TenantDashboard" component={TenantDashboard} />
+                <Stack.Screen name="JoinHostel" component={JoinHostel} />
+              </>
+            )}
           </>
         )}
       </Stack.Navigator>

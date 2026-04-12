@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.js';
 import ownerRoutes from './routes/owner.js';
 import tenantRoutes from './routes/tenant.js';
 import paytmRoutes from './routes/paytm.js';
+import subscriptionRoutes from './routes/subscription.js';
 
 dotenv.config();
 

@@ -27,12 +27,18 @@ router.post('/register', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const trialEndDate = new Date();
+    trialEndDate.setMonth(trialEndDate.getMonth() + 3);
+
     const { data: user, error } = await supabase.from('users').insert([{
       email,
       password: hashedPassword,
       name,
       role,
-      phone: phone || ''
+      phone: phone || '',
+      trial_end_date: trialEndDate.toISOString(),
+      subscription_status: 'trial',
+      payment_setup_complete: role === 'tenant' ? true : false // Tenants are free, owners need setup
     }]).select().single();
 
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, {

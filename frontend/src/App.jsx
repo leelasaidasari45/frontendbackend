@@ -17,6 +17,7 @@ const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage'));
 const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage'));
 const TenantDashboard = lazy(() => import('./pages/tenant/TenantDashboard'));
 const JoinHostel = lazy(() => import('./pages/tenant/JoinHostel'));
+const SelectPlanPage = lazy(() => import('./pages/SelectPlanPage'));
 
 import { Navigate } from 'react-router-dom';
 import { HostelProvider } from './context/HostelContext';
@@ -31,6 +32,11 @@ const ProtectedRoute = ({ children, roleType }) => {
 
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  // Mandatory Payment Setup for Owners
+  if (user.role === 'owner' && !user.payment_setup_complete && window.location.pathname !== '/select-plan') {
+    return <Navigate to="/select-plan" replace />;
   }
 
   if (roleType && user.role !== roleType) {
