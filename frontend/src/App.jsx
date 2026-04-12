@@ -47,6 +47,7 @@ const LoadingScreen = () => (
   </div>
 );
 
+import { setupPushNotifications } from './utils/PushNotifications';
 import MobileSplash from './components/MobileSplash';
 
 function App() {

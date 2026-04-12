@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Image } from 'react-native';
 import { Theme, globalStyles } from '../../styles/theme';
 import { useAuth } from '../../context/AuthContext';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -76,12 +76,6 @@ const LoginScreen = () => {
                 <Text style={styles.loginBtnText}>Login</Text>
               )}
             </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </LinearGradient>
-  );
-};
 
             <TouchableOpacity style={styles.footer} onPress={() => navigation.navigate('Register')}>
                 <Text style={styles.footerText}>Don't have an account? <Text style={styles.registerLink}>Sign Up</Text></Text>
