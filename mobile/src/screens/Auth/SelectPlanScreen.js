@@ -45,7 +45,7 @@ const SelectPlanScreen = ({ navigation }) => {
                 <View>
                     <Text style={styles.planName}>Premium SaaS</Text>
                     <Text style={styles.planDesc}>Complete automation suite</Text>
-                </div>
+                </View>
                 <View style={styles.priceContainer}>
                     <Text style={styles.currency}>₹</Text>
                     <Text style={styles.price}>999</Text>

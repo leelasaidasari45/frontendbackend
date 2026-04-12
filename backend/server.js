@@ -41,6 +41,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/owner', ownerRoutes);
 app.use('/api/tenant', tenantRoutes);
 app.use('/api/paytm', paytmRoutes);
+app.use('/api/subscription', subscriptionRoutes);
 
 // ✅ Error handler
 app.use((err, req, res, next) => {
