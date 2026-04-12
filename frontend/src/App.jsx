@@ -57,13 +57,16 @@ function App() {
   React.useEffect(() => {
     setupPushNotifications();
     
-    // Check if mobile view (Zomato-style splash)
+    // Check if mobile view and if we haven't splashed in this SESSION (using sessionStorage)
     const isMobile = window.innerWidth <= 768;
-    if (isMobile && !hasSplashed) {
+    const sessionSplashed = sessionStorage.getItem('hasSplashed');
+
+    if (isMobile && !sessionSplashed && !hasSplashed) {
       setShowSplash(true);
       const timer = setTimeout(() => {
         setShowSplash(false);
         setHasSplashed(true);
+        sessionStorage.setItem('hasSplashed', 'true');
       }, 3000);
       return () => clearTimeout(timer);
     }
