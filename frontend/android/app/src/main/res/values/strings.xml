@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">easyPG</string>
-    <string name="title_activity_main">easyPG</string>
-    <string name="package_name">com.easypg.app</string>
-    <string name="custom_url_scheme">com.easypg.app</string>
-</resources>
