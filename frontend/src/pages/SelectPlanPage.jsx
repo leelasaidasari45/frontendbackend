@@ -9,11 +9,10 @@ import './AuthPages.css';
 const SelectPlanPage = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { logout } = useAuth();
+    const { logoutContext } = useAuth();
 
     const handleLogout = async () => {
-        await logout();
-        navigate('/login');
+        await logoutContext();
     };
 
     const handleSubscribe = async () => {
