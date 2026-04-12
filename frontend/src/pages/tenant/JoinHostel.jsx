@@ -44,7 +44,7 @@ const JoinHostel = () => {
       try {
         const res = await api.get('/api/tenant/dashboard');
         if (res.data?.tenant) {
-           if (res.data.tenant.status === 'vacated' || res.data.tenant.status === 'new') {
+           if (res.data.tenant.status === 'vacated' || res.data.tenant.status === 'new' || res.data.tenant.status === 'rejected') {
                setStep(1); // Show step 1 to join a new hostel
            } else if (res.data.tenant.status === 'pending') {
                setStep(3); // Show pending approval UI
