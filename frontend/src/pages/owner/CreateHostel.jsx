@@ -144,9 +144,9 @@ const CreateHostel = () => {
                 <Settings2 size={20} color="var(--accent-primary)" /> Property Layout
               </h3>
 
-              <div className="flex-col gap-6">
+              <div className="flex-col gap-8 py-4">
                 {floorsConfig.map((floor, fIndex) => (
-                  <div key={fIndex} className="p-5 rounded-2xl slide-up" style={{ 
+                  <div key={fIndex} className="p-8 rounded-3xl slide-up" style={{ 
                     background: '#f1f5f9', 
                     border: '1px solid #e2e8f0',
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
