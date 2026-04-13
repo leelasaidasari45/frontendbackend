@@ -14,8 +14,10 @@ class AuthService {
       if (data['token'] != null) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('access_token', data['token']);
-        await prefs.setString('user_role', data['user']['role'] ?? 'unassigned');
-        await prefs.setString('user_name', data['user']['name'] ?? '');
+        await prefs.setString('user_id', data['id']?.toString() ?? '');
+        await prefs.setString('user_role', data['role'] ?? 'unassigned');
+        await prefs.setString('user_name', data['name'] ?? '');
+        await prefs.setString('user_email', data['email'] ?? '');
       }
       return data;
     } on DioException catch (e) {

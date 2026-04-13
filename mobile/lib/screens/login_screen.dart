@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
       
       if (!mounted) return;
       
-      if (res['user']['role'] == 'unassigned') {
+      if (res['role'] == 'unassigned') {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const SelectRoleScreen()),
         );
