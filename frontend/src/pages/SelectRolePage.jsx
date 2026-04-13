@@ -37,82 +37,78 @@ const SelectRolePage = () => {
   };
 
   return (
-    <div className="auth-container bg-[#0f172a]" style={{ minHeight: '100vh', padding: '2rem' }}>
-      <div className="max-w-4xl w-full mx-auto">
-        <div className="text-center mb-12 slide-up">
-          <h1 className="text-4xl font-bold text-white mb-4">Choose Your Path</h1>
-          <p className="text-slate-400 text-lg">How will you be using easyPG?</p>
+    <div className="auth-container bg-[#0f172a] flex flex-col items-center justify-center" style={{ minHeight: '100vh', padding: '1rem' }}>
+      <div className="max-w-2xl w-full mx-auto slide-up">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">Choose Your Path</h1>
+          <p className="text-slate-400">How will you be using easyPG?</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Owner Card */}
           <div 
             onClick={() => setSelectedRole('owner')}
-            className={`role-card glass-panel p-8 cursor-pointer transition-all duration-300 transform ${
+            className={`role-card glass-panel p-6 cursor-pointer transition-all duration-300 transform ${
               selectedRole === 'owner' ? 'ring-2 ring-indigo-500 scale-[1.02] bg-indigo-500/10' : 'hover:scale-[1.01] hover:bg-white/5'
             }`}
           >
-            <div className="flex justify-between items-start mb-6">
-              <div className={`p-4 rounded-2xl ${selectedRole === 'owner' ? 'bg-indigo-500 text-white' : 'bg-slate-800 text-indigo-400'}`}>
-                <Building2 size={40} />
+            <div className="flex justify-between items-start mb-4">
+              <div className={`p-3 rounded-xl ${selectedRole === 'owner' ? 'bg-indigo-500 text-white' : 'bg-slate-800 text-indigo-400'}`}>
+                <Building2 size={28} />
               </div>
-              {selectedRole === 'owner' && <CheckCircle2 className="text-indigo-500" size={24} />}
+              {selectedRole === 'owner' && <CheckCircle2 className="text-indigo-500" size={20} />}
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3">Hostel Owner</h3>
-            <p className="text-slate-400 leading-relaxed mb-6">
-              Manage rooms, automate rent collection, and track tenant complaints across all your properties in one place.
+            <h3 className="text-xl font-bold text-white mb-2">Hostel Owner</h3>
+            <p className="text-slate-400 text-sm leading-relaxed mb-4">
+              Manage rooms, automate rent, and track complaints.
             </p>
-            <ul className="space-y-3 text-sm text-slate-300">
+            <ul className="space-y-2 text-xs text-slate-300">
               <li className="flex items-center gap-2"><div className="w-1 h-1 bg-indigo-500 rounded-full" /> QR-based onboarding</li>
-              <li className="flex items-center gap-2"><div className="w-1 h-1 bg-indigo-500 rounded-full" /> Digital ledger management</li>
-              <li className="flex items-center gap-2"><div className="w-1 h-1 bg-indigo-500 rounded-full" /> Staff management</li>
+              <li className="flex items-center gap-2"><div className="w-1 h-1 bg-indigo-500 rounded-full" /> Digital ledger</li>
             </ul>
           </div>
 
           {/* Tenant Card */}
           <div 
             onClick={() => setSelectedRole('tenant')}
-            className={`role-card glass-panel p-8 cursor-pointer transition-all duration-300 transform ${
+            className={`role-card glass-panel p-6 cursor-pointer transition-all duration-300 transform ${
               selectedRole === 'tenant' ? 'ring-2 ring-emerald-500 scale-[1.02] bg-emerald-500/10' : 'hover:scale-[1.01] hover:bg-white/5'
             }`}
           >
-            <div className="flex justify-between items-start mb-6">
-              <div className={`p-4 rounded-2xl ${selectedRole === 'tenant' ? 'bg-emerald-500 text-white' : 'bg-slate-800 text-emerald-400'}`}>
-                <User size={40} />
+            <div className="flex justify-between items-start mb-4">
+              <div className={`p-3 rounded-xl ${selectedRole === 'tenant' ? 'bg-emerald-500 text-white' : 'bg-slate-800 text-emerald-400'}`}>
+                <User size={28} />
               </div>
-              {selectedRole === 'tenant' && <CheckCircle2 className="text-emerald-500" size={24} />}
+              {selectedRole === 'tenant' && <CheckCircle2 className="text-emerald-500" size={20} />}
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3">Resident / Tenant</h3>
-            <p className="text-slate-400 leading-relaxed mb-6">
-              Easily pay rent, report maintenance issues, and stay updated with hostel notices from your personal portal.
+            <h3 className="text-xl font-bold text-white mb-2">Resident</h3>
+            <p className="text-slate-400 text-sm leading-relaxed mb-4">
+              Pay rent easily and report maintenance issues.
             </p>
-            <ul className="space-y-3 text-sm text-slate-300">
-              <li className="flex items-center gap-2"><div className="w-1 h-1 bg-emerald-500 rounded-full" /> Easy digital payments</li>
-              <li className="flex items-center gap-2"><div className="w-1 h-1 bg-emerald-500 rounded-full" /> Quick issue reporting</li>
-              <li className="flex items-center gap-2"><div className="w-1 h-1 bg-emerald-500 rounded-full" /> Daily food menu view</li>
+            <ul className="space-y-2 text-xs text-slate-300">
+              <li className="flex items-center gap-2"><div className="w-1 h-1 bg-emerald-500 rounded-full" /> Digital payments</li>
+              <li className="flex items-center gap-2"><div className="w-1 h-1 bg-emerald-500 rounded-full" /> Issue reporting</li>
             </ul>
           </div>
         </div>
 
-        <div className="flex flex-col items-center slide-up" style={{ animationDelay: '0.2s' }}>
+        <div className="flex flex-col items-center">
           <button 
             onClick={handleRoleSelection}
             disabled={!selectedRole || loading}
-            className={`btn btn-primary btn-lg px-12 py-4 rounded-xl flex items-center gap-3 transition-all ${
-              !selectedRole ? 'opacity-50 grayscale cursor-not-allowed' : 'hover:shadow-[0_0_30px_rgba(99,102,241,0.4)]'
+            className={`btn btn-primary w-full max-w-sm py-4 rounded-xl flex items-center justify-center gap-3 transition-all ${
+              !selectedRole ? 'opacity-50 grayscale cursor-not-allowed' : 'hover:shadow-[0_0_20px_rgba(99,102,241,0.3)]'
             }`}
           >
             {loading ? <Loader2 className="animate-spin" /> : <>Continue Application <ArrowRight size={20} /></>}
           </button>
-          <p className="text-slate-500 mt-6 text-sm">You can change your role later by contacting support.</p>
         </div>
       </div>
 
       <style>{`
         .role-card {
           border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 2rem;
-          min-height: 400px;
+          border-radius: 1.5rem;
           display: flex;
           flex-direction: column;
         }
