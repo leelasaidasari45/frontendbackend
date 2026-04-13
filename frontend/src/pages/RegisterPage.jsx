@@ -104,8 +104,6 @@ const RegisterPage = () => {
             </div>
           </div>
 
-          </div>
-          
           <button type="submit" className="btn btn-primary w-full mt-4" disabled={loading}>
             {loading ? <Loader2 size={18} className="animate-spin" /> : <UserPlus size={18} />}
             {loading ? 'Registering...' : 'Register'}
