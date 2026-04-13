@@ -94,7 +94,7 @@ const SelectRolePage = () => {
       <style>{`
         .role-selection-wrapper {
           min-height: 100vh;
-          background-color: #020617;
+          background-color: #f8fafc;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -107,10 +107,10 @@ const SelectRolePage = () => {
           position: absolute;
           width: 100%;
           height: 100%;
-          background: radial-gradient(circle at 20% 20%, #1e1b4b 0%, transparent 40%),
-                      radial-gradient(circle at 80% 80%, #064e3b 0%, transparent 40%);
+          background: radial-gradient(circle at 20% 20%, #e0e7ff 0%, transparent 40%),
+                      radial-gradient(circle at 80% 80%, #d1fae5 0%, transparent 40%);
           filter: blur(100px);
-          opacity: 0.5;
+          opacity: 0.8;
         }
 
         .content-container {
@@ -132,27 +132,27 @@ const SelectRolePage = () => {
         .main-title {
           font-size: 3.5rem;
           font-weight: 800;
-          color: white;
+          color: #1e293b;
           margin-bottom: 0.5rem;
           letter-spacing: -2px;
-          background: linear-gradient(to bottom, #fff, #94a3b8);
+          background: linear-gradient(to bottom, #1e293b, #64748b);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
 
         .sub-title {
-          color: #94a3b8;
+          color: #64748b;
           font-size: 1.1rem;
         }
 
         .role-menu {
           width: 100%;
-          background: rgba(15, 23, 42, 0.6);
+          background: rgba(255, 255, 255, 0.7);
           backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 1);
           border-radius: 2.5rem;
           padding: 1rem;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
         }
 
         .role-item {
@@ -169,7 +169,7 @@ const SelectRolePage = () => {
         }
 
         .role-item:hover {
-          background: rgba(255, 255, 255, 0.03);
+          background: rgba(0, 0, 0, 0.02);
         }
 
         .icon-circle {
@@ -190,7 +190,7 @@ const SelectRolePage = () => {
         }
 
         .shadow-indigo {
-          box-shadow: 0 0 20px rgba(79, 70, 229, 0.2);
+          box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
         }
 
         .icon-tenant {
@@ -199,12 +199,11 @@ const SelectRolePage = () => {
         }
 
         .shadow-emerald {
-          box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+          box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
         }
 
         .role-item:hover .icon-circle {
           transform: scale(1.1);
-          box-shadow: 0 0 30px currentColor;
         }
 
         .item-text {
@@ -212,7 +211,7 @@ const SelectRolePage = () => {
         }
 
         .item-title {
-          color: white;
+          color: #1e293b;
           font-size: 1.25rem;
           font-weight: 700;
           margin-bottom: 0.25rem;
@@ -224,17 +223,17 @@ const SelectRolePage = () => {
         }
 
         .arrow-wrapper {
-          color: #334155;
+          color: #cbd5e1;
           transition: all 0.3s ease;
         }
 
         .role-item:hover .arrow-wrapper {
-          color: white;
+          color: #1e293b;
         }
 
         .menu-divider {
           height: 1px;
-          background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+          background: linear-gradient(to right, transparent, rgba(0,0,0,0.05), transparent);
           margin: 0.5rem 0;
         }
 
