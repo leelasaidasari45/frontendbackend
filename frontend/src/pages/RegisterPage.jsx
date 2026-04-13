@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserPlus, BuildingIcon, Loader2 } from 'lucide-react';
+import { UserPlus, Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../api';
 import { useAuth } from '../context/AuthContext';
@@ -31,7 +31,7 @@ const RegisterPage = () => {
         email: formData.email,
         password: formData.password
       });
-
+      
       // Auto-login after registration
       loginContext(res.data);
       toast.success('Account created successfully!');
@@ -42,6 +42,24 @@ const RegisterPage = () => {
       console.error('Registration error details:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: 'https://easypg-zeta.vercel.app/auth/callback',
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
+        },
+      });
+      if (error) throw error;
+    } catch (err) {
+      toast.error(err.message || 'Google login failed');
     }
   };
 
@@ -69,6 +87,7 @@ const RegisterPage = () => {
               required
             />
           </div>
+          
           <div className="form-group">
             <label className="form-label">Email Address</label>
             <input
@@ -116,19 +135,7 @@ const RegisterPage = () => {
           <button 
             type="button" 
             className="btn btn-social w-full" 
-            onClick={async () => {
-              const { error } = await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: {
-                  redirectTo: 'https://easypg-zeta.vercel.app/auth/callback',
-                  queryParams: {
-                    access_type: 'offline',
-                    prompt: 'consent',
-                  },
-                },
-              });
-              if (error) toast.error(error.message);
-            }}
+            onClick={handleGoogleLogin}
           >
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
             Continue with Google
@@ -138,12 +145,9 @@ const RegisterPage = () => {
         <p className="auth-footer text-center mt-6 text-muted">
           Already have an account? <Link to="/login" className="text-gradient">Login</Link>
         </p>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 
 export default RegisterPage;
-
-
-
