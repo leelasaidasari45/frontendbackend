@@ -30,26 +30,33 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   Future<void> _checkAuth() async {
-    await Future.delayed(const Duration(seconds: 3)); // Minimum splash time
-    final loggedIn = await authService.isLoggedIn();
-    
-    if (!mounted) return;
-
-    if (loggedIn) {
-      final prefs = await SharedPreferences.getInstance();
-      final role = prefs.getString('user_role') ?? 'unassigned';
+    try {
+      debugPrint('SPLASH: Starting Auth Check...');
+      await Future.delayed(const Duration(seconds: 2));
       
-      if (role == 'unassigned') {
+      final loggedIn = await authService.isLoggedIn();
+      debugPrint('SPLASH: Logged In = $loggedIn');
+      
+      if (!mounted) return;
+
+      if (loggedIn) {
+        final prefs = await SharedPreferences.getInstance();
+        final role = prefs.getString('user_role') ?? 'unassigned';
+        debugPrint('SPLASH: User Role = $role');
+        
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const SelectRoleScreen()),
         );
       } else {
-        // Navigate to Dashboard (stubs for now)
+        debugPrint('SPLASH: Navigating to Login');
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const SelectRoleScreen()),
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
         );
       }
-    } else {
+    } catch (e) {
+      debugPrint('SPLASH ERROR: $e');
+      if (!mounted) return;
+      // Fallback to login on error
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
@@ -65,34 +72,44 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC), // Matching Premium Light Theme
+      backgroundColor: const Color(0xFFF8FAFC),
       body: Center(
         child: FadeTransition(
           opacity: _animation,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset(
-                'assets/logo.svg',
+              // Temporarily using Container + Icon instead of SVG to avoid native crash
+              Container(
                 width: 120,
                 height: 120,
+                decoration: const BoxDecoration(
+                  color: Color(0xFF4F46E5),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.home_work_rounded,
+                  size: 60,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(height: 24),
               const Text(
                 'easyPG',
                 style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w800,
+                  fontSize: 40,
+                  fontWeight: FontWeight.w900,
                   color: Color(0xFF1E293B),
                   letterSpacing: -1,
                 ),
               ),
               const SizedBox(height: 8),
               const Text(
-                'Loading your property...',
+                'Connecting to Server...',
                 style: TextStyle(
                   color: Color(0xFF64748B),
-                  fontSize: 14,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
