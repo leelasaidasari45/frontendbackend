@@ -2,7 +2,7 @@ import React from 'react';
 
 const MobileSplash = () => {
   return (
-    <div style={styles.container}>
+    <div style={styles.container} className="splash-container">
       <div style={styles.content}>
         <div style={styles.logoWrapper}>
           <img 
@@ -30,6 +30,13 @@ const MobileSplash = () => {
         }
         @keyframes spin {
           to { transform: rotate(360deg); }
+        }
+        @keyframes fadeOut {
+          0% { opacity: 1; }
+          100% { opacity: 0; }
+        }
+        .splash-container {
+          animation: fadeOut 0.4s ease-in-out 2.4s forwards;
         }
       `}</style>
     </div>

@@ -19,8 +19,8 @@ class ApiClient {
       ),
     );
 
-    // Interceptor for JWT handling
-    _dio.interceptors.add(
+    // Interceptors for JWT and Logging
+    _dio.interceptors.addAll([
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           final prefs = await SharedPreferences.getInstance();
@@ -28,15 +28,21 @@ class ApiClient {
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
           }
+          debugPrint('APP_API: Sending ${options.method} to ${options.path}');
           return handler.next(options);
         },
+        onResponse: (response, handler) {
+          debugPrint('APP_API: Success [${response.statusCode}]');
+          return handler.next(response);
+        },
         onError: (DioException e, handler) {
-          // Log errors or handle globally
-          print('API ERROR: ${e.response?.data ?? e.message}');
+          debugPrint('APP_API_ERROR: [${e.response?.statusCode}] ${e.response?.data}');
+          debugPrint('APP_API_ERROR_FULL: ${e.message}');
           return handler.next(e);
         },
       ),
-    );
+      LogInterceptor(requestBody: true, responseBody: true), // Verbose logs
+    ]);
   }
 
   Dio get dio => _dio;

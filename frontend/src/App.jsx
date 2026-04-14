@@ -57,33 +57,32 @@ const LoadingScreen = () => (
 
 import MobileSplash from './components/MobileSplash';
 
-function App() {
-  const [showSplash, setShowSplash] = React.useState(false);
-  const [hasSplashed, setHasSplashed] = React.useState(false);
 
-  React.useEffect(() => {
-    // Check if mobile view and if we haven't splashed in this SESSION (using sessionStorage)
+function App() {
+  // Check if we already splashed this session
+  const [showSplash, setShowSplash] = React.useState(() => {
     const isMobile = window.innerWidth <= 768;
     const sessionSplashed = sessionStorage.getItem('hasSplashed');
+    return isMobile && !sessionSplashed;
+  });
 
-    if (isMobile && !sessionSplashed && !hasSplashed) {
-      setShowSplash(true);
+  React.useEffect(() => {
+    if (showSplash) {
       const timer = setTimeout(() => {
         setShowSplash(false);
-        setHasSplashed(true);
         sessionStorage.setItem('hasSplashed', 'true');
-      }, 2500);
+      }, 2800); // 2.5s display + 0.3s fade buffer
       return () => clearTimeout(timer);
     }
-  }, [hasSplashed]);
-
-  if (showSplash) return <MobileSplash />;
+  }, [showSplash]);
 
   return (
     <AuthProvider>
-    <Router>
-      <HostelProvider>
-        <div className="app-container">
+      <Router>
+        <div className="app-container relative">
+          {/* Splash as Overlay - Ensuring background verification happens under it */}
+          {showSplash && <MobileSplash />}
+          
           <Toaster position="top-right" 
             toastOptions={{
               style: {

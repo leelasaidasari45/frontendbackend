@@ -18,8 +18,14 @@ const LandingPage = () => {
       navigate('/register');
     }
   }, [user, loadingAuth, navigate]);
-  // Completely hide landing page content on mobile to prevent "flashing" before redirect
-  if (loadingAuth || window.innerWidth <= 768) return null;
+  // In mobile view, while redirecting or loading auth, show a loader instead of a white screen
+  if (loadingAuth || window.innerWidth <= 768) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-[#0f172a]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="landing-page">
