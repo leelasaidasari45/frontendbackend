@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Home, CreditCard, MessageSquare, IndianRupee, CheckCircle2, LayoutDashboard, LogOut, ArrowRightCircle, Loader2 } from 'lucide-react';
+import { Home, CreditCard, MessageSquare, IndianRupee, CheckCircle2, LayoutDashboard, LogOut, ArrowRightCircle, Loader2, ShieldCheck } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api';
 import { useNavigate, Link } from 'react-router-dom';
