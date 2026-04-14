@@ -11,7 +11,6 @@ const MobileSplash = () => {
             style={styles.logo}
           />
         </div>
-        <h1 style={styles.title}>easyPG</h1>
         <p style={styles.subtitle}>Modern Hostel Management</p>
       </div>
       

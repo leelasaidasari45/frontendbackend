@@ -33,7 +33,6 @@ const LandingPage = () => {
       <nav className="glass-panel landing-nav slide-up">
         <Link to="/" className="logo flex items-center gap-2" style={{ textDecoration: 'none' }}>
           <img src="https://i.pinimg.com/736x/1d/31/58/1d315807fbdbf074612825fcdaa7c9b8.jpg" alt="easyPG Logo" className="logo-img" style={{ height: '32px', borderRadius: '4px' }} />
-          <h2 className="logo-text" style={{ fontSize: '1.4rem', fontWeight: 'bold', color: '#fff', margin: 0 }}>easyPG</h2>
         </Link>
         <div className="nav-links">
           <Link to="/login" className="btn btn-secondary">Login</Link>

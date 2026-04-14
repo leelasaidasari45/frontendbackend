@@ -73,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Join easyPG to manage your property',
+                'Join us to manage your property',
                 style: GoogleFonts.outfit(
                   fontSize: 16,
                   color: const Color(0xFF64748B),

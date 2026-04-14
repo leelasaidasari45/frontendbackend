@@ -94,22 +94,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 ),
               ),
               const SizedBox(height: 24),
-              const Text(
-                'easyPG',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w900,
-                  color: Color(0xFF1E293B),
-                  letterSpacing: -1,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Connecting to Server...',
-                style: TextStyle(
-                  color: Color(0xFF64748B),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+              const SizedBox(height: 16),
+              Text(
+                'Modern Hostel Management',
+                style: GoogleFonts.outfit(
+                  fontSize: 18,
+                  color: const Color(0xFF64748B),
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],

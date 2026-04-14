@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Welcome back to easyPG!',
+                'Welcome back!',
                 style: GoogleFonts.outfit(
                   fontSize: 16,
                   color: const Color(0xFF64748B),

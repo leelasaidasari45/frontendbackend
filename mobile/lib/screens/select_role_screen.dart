@@ -78,7 +78,7 @@ class _SelectRoleScreenState extends State<SelectRoleScreen> {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'Tell us how you\'ll be using easyPG',
+                    'Tell us how you\'ll be using the app',
                     style: TextStyle(color: Color(0xFF64748B), fontSize: 16),
                   ),
                   const SizedBox(height: 48),

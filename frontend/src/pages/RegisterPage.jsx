@@ -69,7 +69,6 @@ const RegisterPage = () => {
         <div className="auth-header flex-col items-center gap-2">
           <Link to="/" className="flex items-center gap-2" style={{ textDecoration: 'none' }}>
             <img src="https://i.pinimg.com/736x/1d/31/58/1d315807fbdbf074612825fcdaa7c9b8.jpg" alt="easyPG Logo" style={{ height: '36px', borderRadius: '4px' }} />
-            <h2 className="logo-text" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff' }}>easyPG</h2>
           </Link>
           <h2>Create Account</h2>
           <p className="text-muted">Join easyPG today</p>
