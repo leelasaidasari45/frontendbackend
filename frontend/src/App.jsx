@@ -83,39 +83,44 @@ function App() {
       <Router>
         <HostelProvider>
           <div className="app-container relative">
-          {/* Splash as Overlay - Ensuring background verification happens under it */}
-          {showSplash && <MobileSplash />}
-          
-          <Toaster position="top-right" 
-            toastOptions={{
-              style: {
-                background: '#1e293b',
-                color: '#fff',
-                border: '1px solid rgba(255,255,255,0.1)'
-              }
-            }} 
-          />
-          <Suspense fallback={<LoadingScreen />}>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/auth/callback" element={<AuthCallback />} />
-              <Route path="/select-role" element={<SelectRolePage />} />
-              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-              <Route path="/reset-password" element={<ResetPasswordPage />} />
-              <Route path="/select-plan" element={<ProtectedRoute roleType="owner"><SelectPlanPage /></ProtectedRoute>} />
-              <Route path="/owner/dashboard" element={<ProtectedRoute roleType="owner"><OwnerDashboard /></ProtectedRoute>} />
-              <Route path="/owner/create-hostel" element={<ProtectedRoute roleType="owner"><CreateHostel /></ProtectedRoute>} />
-              <Route path="/owner/rooms" element={<ProtectedRoute roleType="owner"><RoomsPage /></ProtectedRoute>} />
-              <Route path="/owner/complaints" element={<ProtectedRoute roleType="owner"><ComplaintsPage /></ProtectedRoute>} />
-              <Route path="/owner/tenants" element={<ProtectedRoute roleType="owner"><TenantsPage /></ProtectedRoute>} />
-              <Route path="/owner/past-tenants" element={<ProtectedRoute roleType="owner"><PastTenantsPage /></ProtectedRoute>} />
-              <Route path="/tenant/join" element={<ProtectedRoute roleType="tenant"><JoinHostel /></ProtectedRoute>} />
-              <Route path="/tenant/dashboard" element={<ProtectedRoute roleType="tenant"><TenantDashboard /></ProtectedRoute>} />
-            </Routes>
-          </Suspense>
-        </div>
+            {/* Splash as Overlay - Ensuring background verification happens under it */}
+            {showSplash && <MobileSplash />}
+            
+            {/* Only show app content after splash is gone */}
+            {!showSplash && (
+              <>
+                <Toaster position="top-right" 
+                  toastOptions={{
+                    style: {
+                      background: '#1e293b',
+                      color: '#fff',
+                      border: '1px solid rgba(255,255,255,0.1)'
+                    }
+                  }} 
+                />
+                <Suspense fallback={<LoadingScreen />}>
+                  <Routes>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/auth/callback" element={<AuthCallback />} />
+                    <Route path="/select-role" element={<SelectRolePage />} />
+                    <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                    <Route path="/reset-password" element={<ResetPasswordPage />} />
+                    <Route path="/select-plan" element={<ProtectedRoute roleType="owner"><SelectPlanPage /></ProtectedRoute>} />
+                    <Route path="/owner/dashboard" element={<ProtectedRoute roleType="owner"><OwnerDashboard /></ProtectedRoute>} />
+                    <Route path="/owner/create-hostel" element={<ProtectedRoute roleType="owner"><CreateHostel /></ProtectedRoute>} />
+                    <Route path="/owner/rooms" element={<ProtectedRoute roleType="owner"><RoomsPage /></ProtectedRoute>} />
+                    <Route path="/owner/complaints" element={<ProtectedRoute roleType="owner"><ComplaintsPage /></ProtectedRoute>} />
+                    <Route path="/owner/tenants" element={<ProtectedRoute roleType="owner"><TenantsPage /></ProtectedRoute>} />
+                    <Route path="/owner/past-tenants" element={<ProtectedRoute roleType="owner"><PastTenantsPage /></ProtectedRoute>} />
+                    <Route path="/tenant/join" element={<ProtectedRoute roleType="tenant"><JoinHostel /></ProtectedRoute>} />
+                    <Route path="/tenant/dashboard" element={<ProtectedRoute roleType="tenant"><TenantDashboard /></ProtectedRoute>} />
+                  </Routes>
+                </Suspense>
+              </>
+            )}
+          </div>
       </HostelProvider>
     </Router>
   </AuthProvider>
