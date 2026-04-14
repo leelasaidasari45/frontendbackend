@@ -79,7 +79,8 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="app-container relative">
+        <HostelProvider>
+          <div className="app-container relative">
           {/* Splash as Overlay - Ensuring background verification happens under it */}
           {showSplash && <MobileSplash />}
           
