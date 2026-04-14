@@ -186,15 +186,23 @@ const TenantDashboard = () => {
     <div className="dashboard-layout">
       {/* Sidebar */}
       <aside className="sidebar glass-panel slide-up">
-        <Link to="/" className="logo flex items-center gap-3 mb-10" style={{ textDecoration: 'none' }}>
+        <Link to="/" className="logo flex items-center gap-3 mb-8" style={{ textDecoration: 'none' }}>
           <img src="https://i.pinimg.com/736x/1d/31/58/1d315807fbdbf074612825fcdaa7c9b8.jpg" alt="easyPG Logo" style={{ height: '36px', width: '36px', borderRadius: '4px', objectFit: 'cover' }} />
         </Link>
         
         <nav className="sidebar-nav flex-col gap-2">
-          <button onClick={() => setActiveTab('dashboard')} className={`nav-item ${activeTab === 'dashboard' ? 'active':''}`} style={{border:'none', background:'transparent', width:'100%', textAlign:'left', fontFamily:'inherit', fontSize:'1rem'}}><LayoutDashboard size={20} /> Home</button>
-          <button onClick={() => setActiveTab('rent')} className={`nav-item ${activeTab === 'rent' ? 'active':''}`} style={{border:'none', background:'transparent', width:'100%', textAlign:'left', fontFamily:'inherit', fontSize:'1rem'}}><CreditCard size={20} /> Rent</button>
-          <button onClick={() => setActiveTab('complaints')} className={`nav-item ${activeTab === 'complaints' ? 'active':''}`} style={{border:'none', background:'transparent', width:'100%', textAlign:'left', fontFamily:'inherit', fontSize:'1rem'}}><MessageSquare size={20} /> Issue</button>
-          <button onClick={() => setActiveTab('vacate')} className={`nav-item ${activeTab === 'vacate' ? 'active':''}`} style={{border:'none', background:'transparent', width:'100%', textAlign:'left', fontFamily:'inherit', fontSize:'1rem'}}><ArrowRightCircle size={20} /> Vacate</button>
+          <button onClick={() => setActiveTab('dashboard')} className={`nav-item ${activeTab === 'dashboard' ? 'active':''}`}>
+            <LayoutDashboard size={20} /> Home
+          </button>
+          <button onClick={() => setActiveTab('rent')} className={`nav-item ${activeTab === 'rent' ? 'active':''}`}>
+            <CreditCard size={20} /> Rent
+          </button>
+          <button onClick={() => setActiveTab('complaints')} className={`nav-item ${activeTab === 'complaints' ? 'active':''}`}>
+            <MessageSquare size={20} /> Issues
+          </button>
+          <button onClick={() => setActiveTab('vacate')} className={`nav-item ${activeTab === 'vacate' ? 'active':''}`}>
+            <ArrowRightCircle size={20} /> Vacate
+          </button>
         </nav>
       </aside>
 
