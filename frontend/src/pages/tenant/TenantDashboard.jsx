@@ -266,30 +266,30 @@ const TenantDashboard = () => {
                      <ShieldCheck size={24} style={{ color: 'var(--accent-primary)' }} />
                      Hostel Rules & Regulations
                    </h3>
-                   <ul className="grid gap-x-12 gap-y-4 text-sm text-muted" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
-                       <li className="flex gap-3 items-start p-4 rounded-lg border border-glass" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                         <span className="text-accent font-bold" style={{ color: 'var(--accent-primary)' }}>01</span> 
-                         <span><strong>Rent Payment:</strong> Must be paid by the 5th of every month to avoid late fees.</span>
+                   <ul className="rules-list">
+                       <li className="rule-item">
+                         <span className="bullet">•</span> 
+                         <span className="text"><strong>Rent Payment:</strong> Must be paid by the 5th of every month to avoid late fees.</span>
                        </li>
-                       <li className="flex gap-3 items-start p-4 rounded-lg border border-glass" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                         <span className="text-accent font-bold" style={{ color: 'var(--accent-primary)' }}>02</span> 
-                         <span><strong>Notice Period:</strong> A minimum 10-day notice is required before vacating.</span>
+                       <li className="rule-item">
+                         <span className="bullet">•</span> 
+                         <span className="text"><strong>Notice Period:</strong> A minimum 10-day notice is required before vacating.</span>
                        </li>
-                       <li className="flex gap-3 items-start p-4 rounded-lg border border-glass" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                         <span className="text-accent font-bold" style={{ color: 'var(--accent-primary)' }}>03</span> 
-                         <span><strong>Cleanliness:</strong> Keep common areas tidy and dispose of waste in designated bins.</span>
+                       <li className="rule-item">
+                         <span className="bullet">•</span> 
+                         <span className="text"><strong>Cleanliness:</strong> Keep common areas tidy and dispose of waste in designated bins.</span>
                        </li>
-                       <li className="flex gap-3 items-start p-4 rounded-lg border border-glass" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                         <span className="text-accent font-bold" style={{ color: 'var(--accent-primary)' }}>04</span> 
-                         <span><strong>Quiet Hours:</strong> Respect silence between 10:00 PM and 7:00 AM.</span>
+                       <li className="rule-item">
+                         <span className="bullet">•</span> 
+                         <span className="text"><strong>Quiet Hours:</strong> Respect silence between 10:00 PM and 7:00 AM.</span>
                        </li>
-                       <li className="flex gap-3 items-start p-4 rounded-lg border border-glass" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                         <span className="text-accent font-bold" style={{ color: 'var(--accent-primary)' }}>05</span> 
-                         <span><strong>Power Saving:</strong> Turn off lights and fans when leaving your room.</span>
+                       <li className="rule-item">
+                         <span className="bullet">•</span> 
+                         <span className="text"><strong>Power Saving:</strong> Turn off lights and fans when leaving your room.</span>
                        </li>
-                       <li className="flex gap-3 items-start p-4 rounded-lg border border-glass" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                         <span className="text-accent font-bold" style={{ color: 'var(--accent-primary)' }}>06</span> 
-                         <span><strong>Safety:</strong> Illegal substances and smoking are strictly prohibited.</span>
+                       <li className="rule-item">
+                         <span className="bullet">•</span> 
+                         <span className="text"><strong>Safety:</strong> Illegal substances and smoking are strictly prohibited.</span>
                        </li>
                    </ul>
                </div>
