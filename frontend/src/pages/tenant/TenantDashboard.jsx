@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import api from '../../api';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import ThemeToggle from '../../components/ThemeToggle';
 import './TenantDashboard.css';
 
 const TenantDashboard = () => {
@@ -216,6 +217,7 @@ const TenantDashboard = () => {
             </p>
           </div>
           <div className="header-actions flex items-center gap-3">
+            <ThemeToggle />
             <button onClick={logoutContext} className="header-logout-btn">
               <LogOut size={18} /> Logout
             </button>

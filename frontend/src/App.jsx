@@ -57,7 +57,6 @@ const LoadingScreen = () => (
 
 import MobileSplash from './components/MobileSplash';
 import { ThemeProvider } from './context/ThemeContext';
-import ThemeToggle from './components/ThemeToggle';
 
 
 function App() {
@@ -80,8 +79,6 @@ function App() {
 
   return (
     <ThemeProvider>
-      {/* Global Floating Theme Toggle */}
-      <ThemeToggle />
       <AuthProvider>
       <Router>
         <HostelProvider>
