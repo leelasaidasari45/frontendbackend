@@ -37,9 +37,9 @@ const ProtectedRoute = ({ children, roleType }) => {
   }
 
   // Mandatory Payment Setup for Owners
-  // if (user.role === 'owner' && !user.payment_setup_complete && window.location.pathname !== '/select-plan') {
-  //   return <Navigate to="/select-plan" replace />;
-  // }
+  if (user.role === 'owner' && !user.payment_setup_complete && window.location.pathname !== '/select-plan') {
+    return <Navigate to="/select-plan" replace />;
+  }
 
   if (roleType && user.role !== roleType) {
     return <Navigate to={user.role === 'owner' ? '/owner/dashboard' : '/tenant/dashboard'} replace />;
