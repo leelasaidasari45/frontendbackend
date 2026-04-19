@@ -37,8 +37,8 @@ const RegisterPage = () => {
       toast.success('Account created successfully!');
       navigate('/select-role');
     } catch (err) {
-      const errorMsg = err.response?.data?.error || err.response?.data?.message || err.message || 'Registration failed';
-      toast.error(errorMsg);
+      const errorMsg = err.response?.data?.details || err.response?.data?.error || err.response?.data?.message || err.message || 'Registration failed';
+      toast.error(errorMsg, { duration: 6000 });
       console.error('Registration error details:', err);
     } finally {
       setLoading(false);

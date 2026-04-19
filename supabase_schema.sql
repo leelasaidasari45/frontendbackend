@@ -14,6 +14,10 @@ CREATE TABLE users (
   address TEXT,
   vehicle_number TEXT,
   aadhaar_url TEXT,
+  trial_end_date TIMESTAMPTZ,
+  subscription_status TEXT DEFAULT 'none',
+  payment_setup_complete BOOLEAN DEFAULT false,
+  paytm_subscription_id TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
