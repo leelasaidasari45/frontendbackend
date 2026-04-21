@@ -64,16 +64,22 @@
   margin-bottom: 1rem;
   letter-spacing: -0.04em;
   font-family: 'Outfit', sans-serif;
+  background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .branding-title span {
-  color: #6366f1;
+  color: #818cf8;
+  -webkit-text-fill-color: #818cf8;
 }
 
 .branding-subtitle {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: #94a3b8;
   margin-bottom: 3rem;
+  line-height: 1.5;
 }
 
 .branding-features {
