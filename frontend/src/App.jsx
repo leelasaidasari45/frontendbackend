@@ -5,8 +5,7 @@ import { Toaster } from 'react-hot-toast';
 
 // Lazy load all pages
 const LandingPage = lazy(() => import('./pages/LandingPage'));
-const LoginPage = lazy(() => import('./pages/LoginPage'));
-const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const AuthPage = lazy(() => import('./pages/AuthPage'));
 const OwnerDashboard = lazy(() => import('./pages/owner/OwnerDashboard'));
 const CreateHostel = lazy(() => import('./pages/owner/CreateHostel'));
 const RoomsPage = lazy(() => import('./pages/owner/RoomsPage'));
@@ -102,8 +101,8 @@ function App() {
                 <Suspense fallback={<LoadingScreen />}>
                   <Routes>
                     <Route path="/" element={<LandingPage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/login" element={<AuthPage />} />
+                    <Route path="/register" element={<AuthPage />} />
                     <Route path="/auth/callback" element={<AuthCallback />} />
                     <Route path="/select-role" element={<SelectRolePage />} />
                     <Route path="/forgot-password" element={<ForgotPasswordPage />} />
