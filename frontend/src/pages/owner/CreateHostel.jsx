@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BuildingIcon, Plus, Info, Trash2, Settings2, CheckCircle, Users, MessageSquare, LayoutDashboard, Loader2 } from 'lucide-react';
+import { BuildingIcon, Plus, Info, Trash2, Settings2, CheckCircle, Users, MessageSquare, LayoutDashboard, Loader2, Layers } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import api from '../../api';
@@ -138,57 +138,66 @@ const CreateHostel = () => {
               </div>
             </div>
 
+
             {/* Dynamic Floor Builder */}
             <div className="mb-8">
-              <h3 className="mb-4 flex items-center gap-2 border-b border-glass pb-2">
+              <h3 className="mb-6 flex items-center gap-2 border-b border-glass pb-4">
                 <Settings2 size={20} color="var(--accent-primary)" /> Property Layout
               </h3>
 
-              <div className="flex flex-col gap-4 py-4">
+              <div className="flex flex-col gap-6 py-4">
                 {floorsConfig.map((floor, fIndex) => (
-                  <div key={fIndex} className="p-8 slide-up" style={{ 
-                    background: '#f1f5f9', 
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '7px',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
+                  <div key={fIndex} className="glass-panel p-6 slide-up" style={{ 
+                    border: '1px solid var(--border-color)',
+                    background: 'var(--bg-glass)'
                   }}>
-                    <div className="flex justify-between items-center mb-4">
-                      <strong className="text-lg text-indigo-600">Floor {floor.floor}</strong>
-                      <button type="button" onClick={() => removeFloor(fIndex)} style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer' }}>
-                        <Trash2 size={18} />
+                    <div className="flex justify-between items-center mb-6">
+                      <div className="flex items-center gap-2">
+                        <div className="icon-wrapper m-0 p-2" style={{ background: 'var(--accent-light)', color: 'var(--accent-primary)' }}>
+                          <Layers size={18} />
+                        </div>
+                        <strong style={{ fontSize: '1.25rem', color: 'var(--text-primary)' }}>Floor {floor.floor}</strong>
+                      </div>
+                      <button type="button" className="p-2 hover-bg-danger-light rounded-full transition-all" onClick={() => removeFloor(fIndex)} style={{ background: 'transparent', border: 'none', color: 'var(--danger)', cursor: 'pointer' }}>
+                        <Trash2 size={20} />
                       </button>
                     </div>
 
                     {/* Row Configuration */}
                     {!floor.generated ? (
-                      <div className="floor-builder-row">
-                        <div className="flex-1 w-full text-slate-700">
-                          <label className="form-label text-sm font-semibold">Number of Rooms</label>
-                          <input type="number" min="1" className="form-control" style={{ background: '#fff' }} value={floor.baseRooms} onChange={e => updateFloorField(fIndex, 'baseRooms', e.target.value)} placeholder="e.g. 5" />
+                      <div className="floor-builder-row gap-4">
+                        <div className="flex-1 w-full">
+                          <label className="form-label text-xs uppercase tracking-wider opacity-70">Number of Rooms</label>
+                          <input type="number" min="1" className="form-control" style={{ background: 'var(--bg-secondary)' }} value={floor.baseRooms} onChange={e => updateFloorField(fIndex, 'baseRooms', e.target.value)} placeholder="e.g. 5" />
                         </div>
-                        <div className="flex-1 w-full text-slate-700">
-                          <label className="form-label text-sm font-semibold">Default Beds per Room</label>
-                          <input type="number" min="1" className="form-control" style={{ background: '#fff' }} value={floor.baseCapacity} onChange={e => updateFloorField(fIndex, 'baseCapacity', e.target.value)} placeholder="e.g. 2" />
+                        <div className="flex-1 w-full">
+                          <label className="form-label text-xs uppercase tracking-wider opacity-70">Default Beds</label>
+                          <input type="number" min="1" className="form-control" style={{ background: 'var(--bg-secondary)' }} value={floor.baseCapacity} onChange={e => updateFloorField(fIndex, 'baseCapacity', e.target.value)} placeholder="e.g. 2" />
                         </div>
-                        <button type="button" className="btn btn-secondary generate-btn" style={{ background: '#4f46e5', color: 'white' }} onClick={() => autoGenerateRooms(fIndex)}>Generate</button>
+                        <button type="button" className="btn btn-primary generate-btn px-6" onClick={() => autoGenerateRooms(fIndex)}>Generate Layout</button>
                       </div>
                     ) : (
                       <div>
-                        <div className="flex justify-between items-center mb-4">
-                          <span className="text-sm font-medium text-emerald-600 flex items-center gap-1"><CheckCircle size={14} /> Layout Ready</span>
-                          <button type="button" className="text-xs text-slate-400 font-medium underline cursor-pointer bg-transparent border-none" onClick={() => updateFloorField(fIndex, 'generated', false)}>Reset Floor</button>
+                        <div className="flex justify-between items-center mb-6 p-3 rounded-lg" style={{ background: 'rgba(16, 185, 129, 0.05)', border: '1px solid rgba(16, 185, 129, 0.1)' }}>
+                          <span className="text-sm font-semibold text-emerald-600 flex items-center gap-2">
+                             <CheckCircle size={16} /> Layout Ready
+                          </span>
+                          <button type="button" className="text-xs font-bold text-accent-primary hover-underline bg-transparent border-none cursor-pointer p-1" style={{ color: 'var(--accent-primary)' }} onClick={() => updateFloorField(fIndex, 'generated', false)}>
+                            Re-configure Floor
+                          </button>
                         </div>
 
-                        <div className="rooms-grid gap-3">
+                        <div className="rooms-grid gap-4">
                           {floor.rooms.map((room, rIndex) => (
-                            <div key={rIndex} className="p-4 text-center flex-col items-center justify-center bg-white shadow-sm border border-slate-100" style={{ borderRadius: '7px' }}>
-                              <span className="font-bold block mb-2 text-indigo-500">Room {room.number}</span>
-                              <div className="flex items-center justify-center gap-2 text-sm text-slate-500 font-medium">
-                                Beds:
+                            <div key={rIndex} className="p-4 flex-col items-center justify-center bg-secondary glass-panel border-glass transition-all hover-border-accent" style={{ background: 'var(--bg-secondary)', borderRadius: '12px' }}>
+                              <span className="text-xs uppercase tracking-widest text-muted mb-2 font-bold">Room</span>
+                              <span className="text-xl font-bold text-center block mb-3" style={{ color: 'var(--text-primary)' }}>{room.number}</span>
+                              <div className="flex items-center justify-center gap-2 w-full pt-3 border-t border-glass">
+                                <Users size={14} className="text-muted" />
                                 <input
                                   type="number"
-                                  className="form-control text-center p-1"
-                                  style={{ width: '60px', height: '32px', fontSize: '0.9rem', background: '#f8fafc' }}
+                                  className="form-control text-center p-1 font-bold"
+                                  style={{ width: '50px', height: '32px', fontSize: '0.9rem', background: 'var(--bg-primary)', border: 'none' }}
                                   value={room.capacity}
                                   onChange={e => updateRoomCapacity(fIndex, rIndex, e.target.value)}
                                 />
@@ -202,13 +211,14 @@ const CreateHostel = () => {
                 ))}
               </div>
 
-              <button type="button" className="btn btn-secondary w-full mt-4" style={{ 
-                border: '1.5px dashed var(--accent-primary)', 
-                background: 'rgba(79, 70, 225, 0.05)',
+              <button type="button" className="btn btn-secondary w-full mt-6 py-4" style={{ 
+                border: '2px dashed var(--accent-primary)', 
+                background: 'var(--accent-light)',
                 color: 'var(--accent-primary)',
-                fontWeight: '600'
+                fontWeight: '700',
+                borderRadius: '16px'
               }} onClick={addFloor}>
-                <Plus size={18} /> Add Floor
+                <Plus size={20} /> Add Another Floor
               </button>
             </div>
 
