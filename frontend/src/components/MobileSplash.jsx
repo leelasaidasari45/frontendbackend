@@ -1,6 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const MobileSplash = () => {
+  const [status, setStatus] = useState("Initializing easyPG...");
+  const messages = [
+    "Waking up secure servers...",
+    "Establishing encrypted link...",
+    "Loading your local workspace...",
+    "Optimizing performance...",
+    "Welcome to easyPG!"
+  ];
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < messages.length) {
+        setStatus(messages[i]);
+        i++;
+      }
+    }, 450); // Fast enough to see actions, slow enough to read
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div style={styles.container} className="splash-container">
       <div style={styles.content}>
@@ -15,7 +35,10 @@ const MobileSplash = () => {
       </div>
       
       <div style={styles.footer}>
-        <div style={styles.loader}></div>
+        <div style={styles.statusBox}>
+          <div style={styles.loader}></div>
+          <p style={styles.statusText}>{status}</p>
+        </div>
       </div>
 
       <style>{`
@@ -67,7 +90,7 @@ const styles = {
   logoWrapper: {
     width: '100px',
     height: '100px',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     borderRadius: '24px',
     display: 'flex',
     alignItems: 'center',
@@ -76,22 +99,18 @@ const styles = {
     boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1)',
   },
   logo: {
-    width: '60px',
-    height: '60px',
-    borderRadius: '12px',
-  },
-  title: {
-    fontSize: '2.5rem',
-    fontWeight: '800',
-    color: '#ffffff',
-    letterSpacing: '-1px',
-    margin: 0,
+    width: '64px',
+    height: '64px',
+    borderRadius: '16px',
+    boxShadow: '0 0 20px rgba(99, 102, 241, 0.2)',
   },
   subtitle: {
     fontSize: '1rem',
     color: 'rgba(255, 255, 255, 0.6)',
     marginTop: '0.5rem',
     fontWeight: '400',
+    letterSpacing: '2px',
+    textTransform: 'uppercase',
   },
   footer: {
     position: 'absolute',
@@ -102,10 +121,23 @@ const styles = {
     animation: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards',
     opacity: 0,
   },
+  statusBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '1rem',
+  },
+  statusText: {
+    color: 'rgba(255, 255, 255, 0.4)',
+    fontSize: '0.75rem',
+    fontWeight: '500',
+    letterSpacing: '0.5px',
+    margin: 0,
+  },
   loader: {
-    width: '24px',
-    height: '24px',
-    border: '2px solid rgba(255, 255, 255, 0.1)',
+    width: '20px',
+    height: '20px',
+    border: '2px solid rgba(255, 255, 255, 0.05)',
     borderTopColor: '#6366f1',
     borderRadius: '50%',
     animation: 'spin 1s linear infinite',

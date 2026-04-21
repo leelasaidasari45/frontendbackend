@@ -25,17 +25,22 @@ Add a comprehensive theme management system to the web application, allowing use
 
 ### [Frontend] - Integration
 #### [MODIFY] [App.jsx](file:///c:/Users/dasar/OneDrive/Desktop/AntiGravityHMS/frontend/src/App.jsx)
-- Wrap the entire application tree in the new `ThemeProvider`.
+- Keep `MobileSplash` timeout at 2.8s.
+- Update the `LoadingScreen` fallback to match the "Galaxy Glass" aesthetic instead of a plain white background.
 
-#### [MODIFY] [OwnerHeader.jsx](file:///c:/Users/dasar/OneDrive/Desktop/AntiGravityHMS/frontend/src/components/owner/OwnerHeader.jsx)
-- Inject the `ThemeToggle` into the header actions area.
+### 🎨 Visual Feedback
+
+#### [MODIFY] [MobileSplash.jsx](file:///c:/Users/dasar/OneDrive/Desktop/AntiGravityHMS/frontend/src/components/MobileSplash.jsx)
+- Add a **Dynamic Status Indicator**. This will cycle through messages like "Waking up server...", "Establishing secure link...", "Preparing dashboard..." every 800ms.
+- Ensure the splash screen feels alive with a subtle breathe or pulse animation.
 
 #### [MODIFY] [TenantDashboard.jsx](file:///c:/Users/dasar/OneDrive/Desktop/AntiGravityHMS/frontend/src/pages/tenant/TenantDashboard.jsx)
 - Inject the `ThemeToggle` into the tenant dashboard header.
 
 ## Verification Plan
 
-### Manual Verification
-- **Toggle Test**: Click the Sun/Moon icons in both Owner and Tenant dashboards.
-- **Persistence Test**: Switch to Dark mode, refresh the page, and ensure it stays in Dark mode.
-- **Readability Test**: Check contrast in various cards and tables in dark mode.
+### Manual> [!IMPORTANT]
+> - **Keep Splash Timing**: As requested, we will NOT change the 2.8s mobile splash duration. It will remain exactly as it is.
+> - **Immediate Brand Presence**: I will replace the generic white loading screen in `index.html` with a premium, high-contrast splash screen that appears within milliseconds.
+> - **Backend Pre-warming**: I will initiate a non-blocking "handshake" with the backend in `main.jsx` to wake up the server while the React application is still downloading. This drastically reduces the secondary wait.
+> - **Progress Indicators**: I will add "Connecting to server...", "Authenticating...", etc., to the splash screen so the user knows exactly what is happening.
