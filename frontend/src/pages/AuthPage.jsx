@@ -174,32 +174,9 @@ const AuthPage = () => {
               </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Password</label>
-              <div className="input-group relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={18} />
-                <input
-                  type="password"
-                  className="form-control"
-                  style={{ paddingLeft: '2.5rem' }}
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  required
-                />
-              </div>
-              {isLogin && (
-                <div className="text-right mt-1">
-                  <Link to="/forgot-password" style={{ fontSize: '0.875rem', color: 'var(--accent-primary)', textDecoration: 'none' }}>
-                    Forgot password?
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {!isLogin && (
+            {isLogin ? (
               <div className="form-group">
-                <label className="form-label">Confirm Password</label>
+                <label className="form-label">Password</label>
                 <div className="input-group relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={18} />
                   <input
@@ -207,10 +184,48 @@ const AuthPage = () => {
                     className="form-control"
                     style={{ paddingLeft: '2.5rem' }}
                     placeholder="••••••••"
-                    value={formData.confirmPassword}
-                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                    required={!isLogin}
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    required
                   />
+                </div>
+                <div className="text-right mt-1">
+                  <Link to="/forgot-password" style={{ fontSize: '0.875rem', color: 'var(--accent-primary)', textDecoration: 'none' }}>
+                    Forgot password?
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr' }}>
+                <div className="form-group">
+                  <label className="form-label">Password</label>
+                  <div className="input-group relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={18} />
+                    <input
+                      type="password"
+                      className="form-control"
+                      style={{ paddingLeft: '2.5rem' }}
+                      placeholder="••••••••"
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Confirm</label>
+                  <div className="input-group relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={18} />
+                    <input
+                      type="password"
+                      className="form-control"
+                      style={{ paddingLeft: '2.5rem' }}
+                      placeholder="••••••••"
+                      value={formData.confirmPassword}
+                      onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                      required={!isLogin}
+                    />
+                  </div>
                 </div>
               </div>
             )}
