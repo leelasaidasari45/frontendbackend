@@ -21,7 +21,7 @@
 
 /* Left Side - Branding & Aesthetic */
 .auth-side-branding {
-  flex: 1.1;
+  flex: 0.8;
   background: #000000;
   position: relative;
   padding: 3rem;
@@ -100,7 +100,7 @@
 
 /* Right Side - Form */
 .auth-side-form {
-  flex: 0.9;
+  flex: 1.2;
   padding: 3.5rem;
   display: flex;
   flex-direction: column;

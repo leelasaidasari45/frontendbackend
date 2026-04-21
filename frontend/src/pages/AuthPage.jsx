@@ -97,9 +97,6 @@ const AuthPage = () => {
         {/* Left Side Branding */}
         <div className="auth-side-branding">
           <div className="branding-content">
-            <Link to="/" className="branding-logo">
-              <img src="https://i.pinimg.com/736x/1d/31/58/1d315807fbdbf074612825fcdaa7c9b8.jpg" alt="easyPG Logo" />
-            </Link>
             <h1 className="branding-title">easy<span>PG.</span></h1>
             <p className="branding-subtitle">Your hostel management, reimagined.</p>
             
