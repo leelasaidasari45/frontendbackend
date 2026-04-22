@@ -22,7 +22,7 @@
 /* Left Side - Branding & Aesthetic */
 .auth-side-branding {
   flex: 0.8;
-  background: var(--accent-primary);
+  background: #000000;
   position: relative;
   padding: 3rem;
   display: flex;
@@ -39,8 +39,8 @@
   left: -15%;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
-  filter: blur(60px);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  filter: blur(80px);
 }
 
 .branding-content {
@@ -64,16 +64,20 @@
   margin-bottom: 1rem;
   letter-spacing: -0.04em;
   font-family: 'Outfit', sans-serif;
-  color: #ffffff;
+  background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .branding-title span {
-  color: #c7d2fe;
+  color: #818cf8;
+  -webkit-text-fill-color: #818cf8;
 }
 
 .branding-subtitle {
   font-size: 1.15rem;
-  color: #e0e7ff;
+  color: #94a3b8;
   margin-bottom: 3rem;
   line-height: 1.5;
 }
@@ -89,15 +93,15 @@
   align-items: center;
   gap: 1rem;
   font-size: 1.1rem;
-  color: #f8fafc;
+  color: #e2e8f0;
 }
 
 .feature-dot {
   width: 8px;
   height: 8px;
-  background: #ffffff;
+  background: #6366f1;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px #6366f1;
 }
 
 /* Right Side - Form */
