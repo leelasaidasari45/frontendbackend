@@ -66,7 +66,7 @@ const OwnerDashboard = () => {
             <p className="text-muted mb-6">You need to create your first hostel to view analytics.</p>
             <button
               className="btn btn-primary"
-              onClick={() => window.location.href = '/owner/create-hostel'}
+              onClick={() => window.location.href = '/owner/setup-basic'}
             >
               Setup New Hostel
             </button>
