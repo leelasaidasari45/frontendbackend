@@ -50,10 +50,10 @@ const ProtectedRoute = ({ children, roleType }) => {
 
 // Global Loading Fallback
 const LoadingScreen = () => (
-  <div className="flex flex-col justify-center items-center h-screen bg-[#0f172a] text-white">
+  <div className="flex flex-col justify-center items-center h-screen bg-slate-50 text-slate-900">
     <div className="relative flex flex-col items-center">
-      <div className="w-16 h-16 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin"></div>
-      <div className="mt-8 text-center text-[11px] uppercase tracking-[0.2em] opacity-60 font-medium">
+      <div className="w-16 h-16 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin"></div>
+      <div className="mt-8 text-center text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
         Loading Dashboard Please Wait<span className="animate-pulse">...</span>
       </div>
     </div>
