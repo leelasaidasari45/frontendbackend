@@ -104,10 +104,10 @@ const TenantsPage = () => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      
+
       const extension = filePath.split('.').pop();
       link.download = `aadhaar_${tenantName.replace(/\s+/g, '_')}.${extension}`;
-      
+
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -126,9 +126,9 @@ const TenantsPage = () => {
       )}
 
       <main className="dashboard-content fade-in">
-        <OwnerHeader 
-          title="Tenants Management" 
-          subtitle="Approve and manage residents" 
+        <OwnerHeader
+          title="Tenants Management"
+          subtitle="Approve and manage residents"
         />
 
         {loading ? (
@@ -141,16 +141,16 @@ const TenantsPage = () => {
             <div className="search-toolbar flex justify-center mb-8">
               <div className="search-container glass-panel flex items-center gap-3 px-5 py-3 w-full" style={{ maxWidth: '600px', borderRadius: '12px' }}>
                 <Search size={20} className="text-muted" />
-                <input 
-                  type="text" 
-                  className="search-input" 
-                  placeholder="Search name or room #..." 
+                <input
+                  type="text"
+                  className="search-input"
+                  placeholder="Search name or room #..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   style={{ background: 'transparent', border: 'none', color: '#000', width: '100%', outline: 'none', fontSize: '1.05rem' }}
                 />
                 {searchTerm && (
-                  <button 
+                  <button
                     onClick={() => setSearchTerm('')}
                     style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
                     className="hover:text-white transition-colors"
@@ -204,13 +204,13 @@ const TenantsPage = () => {
               ) : (
                 <div className="flex-col gap-3">
                   {activeTenants.map(t => (
-                    <div key={t._id} className="glass-panel p-4 slide-up relative overflow-hidden tenant-row-item" 
-                         style={{ 
-                           border: '1px solid var(--border-color)',
-                           background: t.status === 'vacating' ? 'rgba(245, 158, 11, 0.05)' : 'var(--bg-secondary)',
-                           width: '100%'
-                         }}>
-                      
+                    <div key={t._id} className="glass-panel p-4 slide-up relative overflow-hidden tenant-row-item"
+                      style={{
+                        border: '1px solid var(--border-color)',
+                        background: t.status === 'vacating' ? 'rgba(245, 158, 11, 0.05)' : 'var(--bg-secondary)',
+                        width: '100%'
+                      }}>
+
                       {t.status === 'vacating' && (
                         <div className="absolute top-0 right-0 px-2 py-0.5 bg-warning text-black text-[10px] font-bold uppercase tracking-wider">
                           Notice
@@ -238,13 +238,13 @@ const TenantsPage = () => {
 
                         {/* Actions Column - Aligned to headers/values */}
                         <div className="flex-col">
-                          <button 
-                            className="tenant-action-link" 
+                          <button
+                            className="tenant-action-link"
                             onClick={() => setSelectedTenant(t)}
                           >
                             View Details
                           </button>
-                          
+
                           <button
                             className="tenant-action-link"
                             onClick={() => handleCompleteVacate(t._id)}
@@ -285,11 +285,11 @@ const TenantsPage = () => {
                 {selectedTenant.aadhaarFile && (
                   <div className="mt-2 text-center p-4 rounded" style={{ gridColumn: '1 / -1', background: 'rgba(0,0,0,0.2)', border: '1px dashed rgba(255,255,255,0.1)' }}>
                     <strong className="text-muted block text-sm mb-3">Identity Verification</strong>
-                    
+
                     {(() => {
                       const isImage = /\.(jpg|jpeg|png|webp)$/i.test(selectedTenant.aadhaarFile);
                       const tenantName = selectedTenant.user?.name || selectedTenant.fatherName || 'Tenant';
-                      
+
                       return (
                         <button
                           onClick={() => handleAadhaarDownload(selectedTenant.aadhaarFile, tenantName)}

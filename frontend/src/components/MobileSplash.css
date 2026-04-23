@@ -1,57 +1,141 @@
+/* ============================================================
+   MobileSplash.css — App Launch Splash Screen
+   ============================================================ */
+
 .mobile-splash-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+    inset: 0;
+    background: #05050e;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 10000;
+    overflow: hidden;
+    font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
 }
 
+/* Deep indigo bloom behind logo */
+.mobile-splash-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 160vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at 50% 30%,
+            rgba(99, 102, 241, 0.18) 0%,
+            rgba(99, 102, 241, 0.06) 35%,
+            transparent 65%);
+    pointer-events: none;
+}
+
+.mobile-splash-container::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -20%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+/* ── Content ───────────────────────────────────────────────── */
 .splash-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.75rem;
+    position: relative;
+    z-index: 1;
+    animation: splashReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
 
+@keyframes splashReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.88) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ── Logo Wrapper ──────────────────────────────────────────── */
 .splash-logo-wrapper {
     width: 100px;
     height: 100px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    position: relative;
+    box-shadow:
+        0 0 0 1px rgba(99, 102, 241, 0.15),
+        0 24px 48px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(99, 102, 241, 0.15);
+}
+
+/* Spinning conic ring — the signature effect */
+.splash-logo-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 27px;
+    background: conic-gradient(from 0deg,
+            transparent 0%,
+            rgba(99, 102, 241, 0.6) 20%,
+            transparent 40%);
+    animation: spinRing 3s linear infinite;
+    mask: radial-gradient(circle at center, transparent 62%, black 64%);
+    -webkit-mask: radial-gradient(circle at center, transparent 62%, black 64%);
+}
+
+@keyframes spinRing {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .splash-logo {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 14px;
 }
 
+/* ── Title ─────────────────────────────────────────────────── */
 .splash-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: 3rem;
+    font-family: 'Syne', 'Outfit', sans-serif;
+    font-size: 2.75rem;
     font-weight: 800;
     margin: 0;
-    background: linear-gradient(to bottom, #fff, #94a3b8);
+    letter-spacing: -0.06em;
+    line-height: 1;
+    background: linear-gradient(160deg, #ffffff 0%, #c7d2fe 50%, #818cf8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    letter-spacing: -1px;
+    background-clip: text;
 }
 
+.splash-title span {
+    color: #818cf8;
+    -webkit-text-fill-color: #818cf8;
+}
+
+/* ── Loader Bar ────────────────────────────────────────────── */
 .splash-loader {
-    width: 120px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    width: 140px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 99px;
     overflow: hidden;
     position: relative;
 }
@@ -60,38 +144,65 @@
     position: absolute;
     top: 0;
     left: -100%;
-    width: 100%;
+    width: 60%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, #0ea5e9, transparent);
-    animation: loading-animation 1.5s infinite;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(99, 102, 241, 0.8),
+            rgba(167, 139, 250, 1),
+            rgba(99, 102, 241, 0.8),
+            transparent);
+    border-radius: 99px;
+    animation: loaderSlide 1.6s ease-in-out infinite;
 }
 
+@keyframes loaderSlide {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 140%;
+    }
+}
+
+/* ── Footer / Status ───────────────────────────────────────── */
 .splash-footer {
     position: absolute;
-    bottom: 3rem;
-    color: #64748b;
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    bottom: 3.5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+    z-index: 1;
+    animation: splashFooter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
 
-/* Animations */
-@keyframes loading-animation {
-    0% { left: -100%; }
-    100% { left: 100%; }
+@keyframes splashFooter {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* ── Animations (kept for compat) ──────────────────────────── */
 .blur-in {
-    animation: blurIn 0.8s cubic-bezier(0.2, 0, 0, 1) forwards;
+    animation: blurIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .scale-up {
-    animation: scaleUp 0.8s cubic-bezier(0.2, 0, 0, 1) forwards;
+    animation: scaleUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .fade-up {
-    animation: fadeUp 1s cubic-bezier(0.2, 0, 0, 1) forwards;
+    animation: fadeUp 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .fade-in {
@@ -99,21 +210,55 @@
 }
 
 @keyframes blurIn {
-    0% { filter: blur(10px); opacity: 0; transform: translateY(20px); }
-    100% { filter: blur(0); opacity: 1; transform: translateY(0); }
+    from {
+        filter: blur(12px);
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        filter: blur(0);
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes scaleUp {
-    0% { transform: scale(0.8); }
-    100% { transform: scale(1); }
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes fadeUp {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
