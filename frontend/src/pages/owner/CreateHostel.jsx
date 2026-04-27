@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { BuildingIcon, Plus, Info, Trash2, Settings2, CheckCircle, Users, Loader2, Layers } from 'lucide-react';
-import { useHostel } from '../../context/HostelContext';
 import toast from 'react-hot-toast';
 import api from '../../api';
 import OwnerHeader from '../../components/owner/OwnerHeader';
