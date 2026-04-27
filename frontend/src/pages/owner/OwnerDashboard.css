@@ -79,21 +79,6 @@ body.hide-sidebar-all .dashboard-layout { grid-template-columns: 1fr !important;
   text-overflow: ellipsis;
 }
 
-.tenant-action-link {
-  background: none;
-  border: none;
-  color: var(--aurora-1);
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: left;
-  padding: 0;
-  transition: color 0.2s ease;
-}
-.tenant-action-link:hover {
-  color: var(--aurora-2);
-  text-decoration: underline;
-}
 
 @media (max-width: 640px) {
   .tenant-row-grid {

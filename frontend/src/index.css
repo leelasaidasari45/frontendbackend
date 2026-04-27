@@ -474,7 +474,7 @@ a:focus-visible, button:focus-visible {
 .tenant-action-link {
   display:block; width:100%; border:none; border-radius:var(--r-sm);
   cursor:pointer; font-weight:600; font-size:.82rem;
-  text-align:center; transition:all var(--transition); padding:.45rem .9rem;
+  text-align:center; transition:all var(--transition); padding:.65rem 1.25rem;
 }
 .tenant-action-link:first-child { background:var(--aurora-1); color:#fff; margin-bottom:.4rem; }
 .tenant-action-link:first-child:hover { background:var(--accent-hover); }
