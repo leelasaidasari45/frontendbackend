@@ -561,8 +561,17 @@ a:focus-visible, button:focus-visible {
   .nav-item-create { border:none !important; background:transparent !important; color:var(--text-dim) !important; }
   .nav-item-create.active { color:var(--aurora-1) !important; }
   .dashboard-content { padding:1rem .75rem; }
-  .dashboard-header { flex-direction:column; align-items:flex-start; gap:1rem; padding:1rem; }
-  .header-actions { width:100%; justify-content:space-between; }
+  .dashboard-header { flex-direction:column; align-items:flex-start; gap:1rem; padding:1rem; margin-bottom: 1.25rem; }
+  .header-actions { width:100%; justify-content:space-between; gap: 0.5rem; }
+  .header-actions select.form-control { flex: 1; min-width: 0; max-width: 180px; }
+  
+  @media (max-width: 480px) {
+    .btn-label { display: none; }
+    .header-logout-btn { padding: 0.5rem; width: 40px; height: 40px; justify-content: center; }
+    .dashboard-header h1 { font-size: 1.25rem; }
+    .dashboard-header p { font-size: 0.75rem !important; }
+  }
+
   .stats-grid { grid-template-columns:1fr !important; }
   .grid { grid-template-columns:1fr !important; }
   .form-grid-2 { grid-template-columns:1fr !important; }
