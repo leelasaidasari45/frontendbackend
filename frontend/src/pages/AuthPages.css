@@ -41,6 +41,43 @@
 .auth-header p { color: var(--text-dim); font-size: .9rem; }
 .auth-form { display: flex; flex-direction: column; gap: .25rem; }
 
+.btn-google {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-muted);
+  color: var(--text-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-weight: 500;
+  transition: all 250ms ease;
+}
+.btn-google:hover {
+  background: var(--bg-surface);
+  border-color: var(--border-active);
+  transform: translateY(-1px);
+}
+.btn-google:active { transform: scale(0.98); }
+.btn-google img { width: 18px; height: 18px; }
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  color: var(--text-ghost);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
 @media (max-width: 480px) {
   .auth-card { padding: 1.75rem; }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Building2, Loader2, TrendingUp, TrendingDown, Users, DoorOpen, IndianRupee, Plus, Bell, Utensils } from 'lucide-react';
 import { useHostel } from '../../context/HostelContext';
 import api from '../../api';
@@ -9,6 +9,7 @@ import OwnerSidebar from '../../components/owner/OwnerSidebar';
 import './OwnerDashboard.css';
 
 const OwnerDashboard = () => {
+  const navigate = useNavigate();
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
   const [loadingNotice, setLoadingNotice] = useState(false);
@@ -53,7 +54,7 @@ const OwnerDashboard = () => {
             </div>
             <h3 style={{ marginBottom:'.75rem' }}>No Property Found</h3>
             <p style={{ color:'var(--text-dim)', marginBottom:'1.5rem' }}>Create your first hostel to start managing tenants and view analytics.</p>
-            <button className="btn btn-primary" onClick={() => window.location.href = '/owner/create-hostel'}>
+            <button className="btn btn-primary" onClick={() => navigate('/owner/create-hostel')}>
               <Plus size={16} /> Setup New Hostel
             </button>
           </div>

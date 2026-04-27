@@ -13,39 +13,36 @@ export const HostelProvider = ({ children }) => {
   const { user } = useAuth();
 
   // Fetch all hostels for the Owner
-  useEffect(() => {
-    const fetchHostels = async () => {
-      try {
-        setLoadingHostels(true);
-        if (user && user.role === 'owner') {
-          const res = await api.get('/api/owner/hostels');
-          
-          setHostels(res.data);
-          
-          // Determine Active Hostel: Priority: 1. LocalStorage, 2. Fallback to first in list
-          const savedLocalId = localStorage.getItem('lastActiveHostelId');
-          
-          if (res.data.length > 0) {
-            const savedHostel = res.data.find(h => h._id === savedLocalId);
-            const defaultHostel = savedHostel || res.data[0];
-            setActiveHostel(defaultHostel);
-          } else {
-            setActiveHostel(null);
-          }
+  const fetchHostels = useCallback(async () => {
+    try {
+      setLoadingHostels(true);
+      if (user && user.role === 'owner') {
+        const res = await api.get('/api/owner/hostels');
+        setHostels(res.data);
+        
+        // Determine Active Hostel
+        const savedLocalId = localStorage.getItem('lastActiveHostelId');
+        if (res.data.length > 0) {
+          const savedHostel = res.data.find(h => h._id === savedLocalId);
+          const defaultHostel = savedHostel || res.data[0];
+          setActiveHostel(defaultHostel);
         } else {
-          // Logged out or tenant
-          setHostels([]);
           setActiveHostel(null);
         }
-      } catch (err) {
-        console.error("Failed to load hostels context", err);
-      } finally {
-        setLoadingHostels(false);
+      } else {
+        setHostels([]);
+        setActiveHostel(null);
       }
-    };
-
-    fetchHostels();
+    } catch (err) {
+      console.error("Failed to load hostels context", err);
+    } finally {
+      setLoadingHostels(false);
+    }
   }, [user]);
+
+  useEffect(() => {
+    fetchHostels();
+  }, [fetchHostels]);
 
   // Expose an updater function
   const switchHostel = useCallback((hostelId) => {
@@ -62,8 +59,9 @@ export const HostelProvider = ({ children }) => {
     hostels,
     activeHostel,
     switchHostel,
+    refreshHostels: fetchHostels,
     loadingHostels
-  }), [hostels, activeHostel, switchHostel, loadingHostels]);
+  }), [hostels, activeHostel, switchHostel, fetchHostels, loadingHostels]);
 
   return (
     <HostelContext.Provider value={contextValue}>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { LogIn, UserPlus, Loader2, Mail, Lock, User, Building2, CheckCircle } from 'lucide-react';
+import { LogIn, UserPlus, Loader2, Mail, Lock, User, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../api';
 import { useAuth } from '../context/AuthContext';
@@ -64,7 +64,9 @@ const AuthPage = () => {
         {/* Left branding panel */}
         <div className="auth-branding">
           <div className="auth-brand-top">
-            <img src="/logo.png" alt="easyPG" style={{ height: 44, width: 'auto', objectFit: 'contain' }} />
+            <div className="auth-logo-container">
+              <img src="/logo.png" alt="easyPG" className="auth-logo-img" />
+            </div>
           </div>
           <div className="auth-brand-body">
             <h2 className="auth-brand-headline">Your hostel,<br /><span className="text-gradient">reimagined.</span></h2>
@@ -82,6 +84,11 @@ const AuthPage = () => {
 
         {/* Right form panel */}
         <div className="auth-form-panel">
+          {/* Mobile-only logo */}
+          <div className="auth-mobile-logo">
+            <img src="/logo.png" alt="easyPG" />
+          </div>
+
           {/* Tab switcher */}
           <div className="auth-tabs">
             <button className={`auth-tab ${isLogin ? 'active' : ''}`} onClick={() => handleToggle('login')}>Sign in</button>

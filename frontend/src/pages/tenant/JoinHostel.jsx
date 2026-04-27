@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { QrCode, FileText, CheckCircle2, Loader2, XCircle, Camera, Building2, ChevronRight, User, Phone, Home, Hash, Car, Calendar, Upload, ArrowLeft } from 'lucide-react';
+import { QrCode, FileText, CheckCircle2, Loader2, XCircle, Camera, ChevronRight, User, Phone, Home, Hash, Car, Calendar, Upload, ArrowLeft } from 'lucide-react';
 import { Html5Qrcode } from 'html5-qrcode';
 import toast from 'react-hot-toast';
 import api from '../../api';

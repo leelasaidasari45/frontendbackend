@@ -20,23 +20,24 @@ const OwnerHeader = ({ title, subtitle }) => {
 
   const joinUrl = `${window.location.origin}/tenant/join?code=${activeHostel?.code || ''}`;
 
-  const downloadQR = () => {
-    const svg = document.getElementById('hostel-qr');
-    const svgData = new XMLSerializer().serializeToString(svg);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    img.onload = () => {
-      canvas.width = img.width; canvas.height = img.height;
-      ctx.fillStyle = 'white'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-      const a = document.createElement('a');
-      a.download = `${activeHostel?.name || 'hostel'}-QR.png`;
-      a.href = canvas.toDataURL('image/png'); a.click();
+    const downloadQR = () => {
+      const svg = document.getElementById('hostel-qr');
+      if (!svg) return;
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.onload = () => {
+        canvas.width = img.width; canvas.height = img.height;
+        ctx.fillStyle = 'white'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+        const a = document.createElement('a');
+        a.download = `${activeHostel?.name || 'hostel'}-QR.png`;
+        a.href = canvas.toDataURL('image/png'); a.click();
+      };
+      img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+      toast.success('QR downloaded!');
     };
-    img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
-    toast.success('QR downloaded!');
-  };
 
   const initials = user?.name ? user.name.charAt(0).toUpperCase() : 'O';
 

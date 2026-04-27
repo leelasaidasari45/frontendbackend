@@ -52,9 +52,11 @@ const AuthCallback = () => {
   }, [navigate, loginContext]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#0f172a] text-white">
-      <Loader2 size={48} className="animate-spin text-indigo-500 mb-4" />
-      <p className="text-xl font-medium">Finishing your secure login...</p>
+    <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', minHeight:'100vh', background:'var(--bg-base)' }}>
+      <div style={{ width:48, height:48, border:'3px solid var(--border-subtle)', borderTopColor:'var(--aurora-1)', borderRadius:'50%', animation:'spin 1s linear infinite' }} />
+      <p style={{ marginTop:'1.5rem', fontSize:'1rem', color:'var(--text-bright)', fontWeight:500, letterSpacing:'0.02em' }}>
+        Finishing your secure login...
+      </p>
     </div>
   );
 };

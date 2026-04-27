@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { BuildingIcon, Plus, Info, Trash2, Settings2, CheckCircle, Users, MessageSquare, LayoutDashboard, Loader2, Layers } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { BuildingIcon, Plus, Info, Trash2, Settings2, CheckCircle, Users, Loader2, Layers } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../../api';
 import OwnerHeader from '../../components/owner/OwnerHeader';
@@ -8,6 +8,8 @@ import OwnerSidebar from '../../components/owner/OwnerSidebar';
 import './OwnerDashboard.css';
 
 const CreateHostel = () => {
+  const navigate = useNavigate();
+  const { refreshHostels } = useHostel();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -83,7 +85,8 @@ const CreateHostel = () => {
       });
 
       toast.success(res.data.message || 'Hostel successfully created!');
-      window.location.href = '/owner/dashboard'; // Force context refresh
+      await refreshHostels();
+      navigate('/owner/dashboard'); 
 
     } catch (err) {
       toast.error(err.response?.data?.error || err.response?.data?.message || 'Failed to create hostel');
