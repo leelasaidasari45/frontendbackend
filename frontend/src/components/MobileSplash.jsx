@@ -1,147 +1,74 @@
 import React, { useState, useEffect } from 'react';
+import { Building2 } from 'lucide-react';
 
 const MobileSplash = () => {
-  const [status, setStatus] = useState("Initializing easyPG...");
+  const [status, setStatus] = useState('Initializing...');
   const messages = [
-    "Waking up secure servers...",
-    "Establishing encrypted link...",
-    "Loading your local workspace...",
-    "Optimizing performance...",
-    "Welcome to easyPG!"
+    'Waking up secure servers...',
+    'Establishing encrypted link...',
+    'Loading your workspace...',
+    'Welcome to easyPG!'
   ];
 
   useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
-      if (i < messages.length) {
-        setStatus(messages[i]);
-        i++;
-      }
-    }, 450); // Fast enough to see actions, slow enough to read
+      if (i < messages.length) { setStatus(messages[i]); i++; }
+    }, 520);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div style={styles.container} className="splash-container">
-      <div style={styles.content}>
-        <div style={styles.logoWrapper}>
-          <img 
-            src="https://i.pinimg.com/736x/1d/31/58/1d315807fbdbf074612825fcdaa7c9b8.jpg" 
-            alt="easyPG Logo" 
-            style={styles.logo}
-          />
+    <div style={{
+      position:'fixed', inset:0,
+      background:'#060810',
+      display:'flex', flexDirection:'column',
+      alignItems:'center', justifyContent:'center',
+      zIndex:9999, fontFamily:"'Inter', system-ui, sans-serif",
+      animation:'splashFadeOut 0.4s ease-in-out 2.4s forwards'
+    }}>
+      {/* Ambient orb */}
+      <div style={{
+        position:'absolute', width:350, height:350, borderRadius:'50%',
+        background:'radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%)',
+        filter:'blur(60px)', top:-80, left:-60, pointerEvents:'none'
+      }} />
+
+      <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'1rem', position:'relative', zIndex:1, animation:'splashFadeIn 0.8s cubic-bezier(0.16,1,0.3,1) forwards' }}>
+        {/* Logo icon */}
+        <div style={{
+          width:72, height:72, borderRadius:20,
+          background:'linear-gradient(135deg,#7c3aed,#2563eb)',
+          display:'flex', alignItems:'center', justifyContent:'center',
+          boxShadow:'0 0 32px rgba(124,58,237,0.5)',
+          animation:'splashFloat 2.5s ease-in-out infinite'
+        }}>
+          <Building2 size={36} color="#fff" />
         </div>
-        <p style={styles.subtitle}>Modern Hostel Management</p>
+        <div style={{ fontFamily:"'Space Grotesk',system-ui,sans-serif", fontSize:'1.6rem', fontWeight:700, color:'#f1f5f9', letterSpacing:'-0.03em' }}>
+          easy<span style={{ color:'#7c3aed' }}>PG</span>
+        </div>
+        <p style={{ fontSize:'.82rem', color:'rgba(255,255,255,0.35)', letterSpacing:'.08em', textTransform:'uppercase', fontWeight:500 }}>
+          Smart Hostel Management
+        </p>
       </div>
-      
-      <div style={styles.footer}>
-        <div style={styles.statusBox}>
-          <div style={styles.loader}></div>
-          <p style={styles.statusText}>{status}</p>
+
+      <div style={{ position:'absolute', bottom:'3.5rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'.75rem', animation:'splashSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both' }}>
+        <div style={{ width:120, height:2, background:'rgba(255,255,255,0.06)', borderRadius:99, overflow:'hidden', position:'relative' }}>
+          <div style={{ position:'absolute', width:'45%', height:'100%', background:'linear-gradient(90deg,#7c3aed,#2563eb)', borderRadius:99, animation:'splashSweep 1.4s ease-in-out infinite' }} />
         </div>
+        <p style={{ fontSize:'.72rem', color:'rgba(255,255,255,0.3)', fontWeight:500, letterSpacing:'.04em' }}>{status}</p>
       </div>
 
       <style>{`
-        @keyframes fadeInScale {
-          0% { opacity: 0; transform: scale(0.8); }
-          100% { opacity: 1; transform: scale(1); }
-        }
-        @keyframes slideUp {
-          0% { opacity: 0; transform: translateY(20px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-        @keyframes fadeOut {
-          0% { opacity: 1; }
-          100% { opacity: 0; }
-        }
-        .splash-container {
-          animation: fadeOut 0.4s ease-in-out 2.4s forwards;
-        }
+        @keyframes splashFadeIn { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
+        @keyframes splashSlideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes splashFadeOut { to{opacity:0;pointer-events:none} }
+        @keyframes splashFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+        @keyframes splashSweep { 0%{transform:translateX(-150%)} 100%{transform:translateX(320%)} }
       `}</style>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: '#0f172a',
-    background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 9999,
-    fontFamily: "'Outfit', sans-serif",
-  },
-  content: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    animation: 'fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-  },
-  logoWrapper: {
-    width: '100px',
-    height: '100px',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-    borderRadius: '24px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '1.5rem',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1)',
-  },
-  logo: {
-    width: '64px',
-    height: '64px',
-    borderRadius: '16px',
-    boxShadow: '0 0 20px rgba(99, 102, 241, 0.2)',
-  },
-  subtitle: {
-    fontSize: '1rem',
-    color: 'rgba(255, 255, 255, 0.6)',
-    marginTop: '0.5rem',
-    fontWeight: '400',
-    letterSpacing: '2px',
-    textTransform: 'uppercase',
-  },
-  footer: {
-    position: 'absolute',
-    bottom: '4rem',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    animation: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards',
-    opacity: 0,
-  },
-  statusBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '1rem',
-  },
-  statusText: {
-    color: 'rgba(255, 255, 255, 0.4)',
-    fontSize: '0.75rem',
-    fontWeight: '500',
-    letterSpacing: '0.5px',
-    margin: 0,
-  },
-  loader: {
-    width: '20px',
-    height: '20px',
-    border: '2px solid rgba(255, 255, 255, 0.05)',
-    borderTopColor: '#6366f1',
-    borderRadius: '50%',
-    animation: 'spin 1s linear infinite',
-  }
 };
 
 export default MobileSplash;

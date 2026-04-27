@@ -36,7 +36,7 @@ const PastTenantsPage = () => {
   }, [activeHostel, loadingHostels]);
 
   if (loadingHostels) {
-    return <div className="flex justify-center items-center h-screen"><Loader2 size={48} className="animate-spin text-accent" /></div>;
+    return <div className="flex justify-center items-center h-screen"><Loader2 size={40} className="animate-spin" style={{ color:'var(--aurora-1)' }} /></div>;
   }
 
   // No pending tenets here
@@ -56,7 +56,7 @@ const PastTenantsPage = () => {
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <Loader2 size={48} className="animate-spin text-accent" />
+            <Loader2 size={40} className="animate-spin" style={{ color:'var(--aurora-1)' }} />
           </div>
         ) : (
           <div>
@@ -69,12 +69,12 @@ const PastTenantsPage = () => {
                 <div className="glass-panel" style={{ overflowX: 'auto', width: '100%', borderRadius: '7px', padding: '1rem' }}>
                   <table style={{ width: '100%', minWidth: '600px', textAlign: 'left', borderCollapse: 'collapse' }}>
                     <thead>
-                      <tr style={{ borderBottom: 'var(--border-glass)' }}>
-                        <th className="p-3 text-muted">Name</th>
-                        <th className="p-3 text-muted">Room</th>
-                        <th className="p-3 text-muted">Join Date</th>
-                        <th className="p-3 text-muted">Vacated On</th>
-                        <th className="p-3 text-muted text-right">Details</th>
+                    <tr style={{ borderBottom:'1px solid var(--border-subtle)' }}>
+                        <th style={{ padding:'.9rem 1rem', color:'var(--text-dim)', fontSize:'.82rem', fontWeight:600, textTransform:'uppercase', letterSpacing:'.04em' }}>Name</th>
+                        <th style={{ padding:'.9rem 1rem', color:'var(--text-dim)', fontSize:'.82rem', fontWeight:600, textTransform:'uppercase', letterSpacing:'.04em' }}>Room</th>
+                        <th style={{ padding:'.9rem 1rem', color:'var(--text-dim)', fontSize:'.82rem', fontWeight:600, textTransform:'uppercase', letterSpacing:'.04em' }}>Join Date</th>
+                        <th style={{ padding:'.9rem 1rem', color:'var(--text-dim)', fontSize:'.82rem', fontWeight:600, textTransform:'uppercase', letterSpacing:'.04em' }}>Vacated On</th>
+                        <th style={{ padding:'.9rem 1rem', color:'var(--text-dim)', fontSize:'.82rem', fontWeight:600, textTransform:'uppercase', letterSpacing:'.04em', textAlign:'right' }}>Details</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -109,13 +109,11 @@ const PastTenantsPage = () => {
 
         {/* View Details Modal */}
         {selectedTenant && (
-          <div className="flex items-center justify-center p-4 fade-in" style={{ background: 'rgba(0,0,0,0.8)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999 }}>
-            <div className="glass-panel p-8 w-full max-w-lg slide-up" style={{ position: 'relative', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <button
-                onClick={() => setSelectedTenant(null)}
-                style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', color: 'var(--muted-text)', cursor: 'pointer' }}
-              >
-                <XCircle size={24} />
+          <div className="modal-backdrop fade-in" onClick={() => setSelectedTenant(null)}>
+            <div className="modal-card slide-up" style={{ maxWidth:560 }} onClick={e => e.stopPropagation()}>
+              <button onClick={() => setSelectedTenant(null)}
+                style={{ position:'absolute', top:'1rem', right:'1rem', background:'transparent', border:'none', color:'var(--text-dim)', cursor:'pointer' }}>
+                <XCircle size={22} />
               </button>
 
               <h3 className="mb-6 flex justify-between items-center border-b border-glass pb-3"> Tenant Details</h3>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BuildingIcon, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, Building2, QrCode, Zap, Shield, BarChart3, Users } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from '../components/ThemeToggle';
 import './LandingPage.css';
@@ -10,86 +10,103 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (loadingAuth) return; // Wait for auth check to complete
-
-    if (user) {
-      navigate(user.role === 'owner' ? '/owner/dashboard' : '/tenant/dashboard');
-    } else if (window.innerWidth <= 768) {
-      // In mobile view, skip landing and go straight to registration
-      navigate('/register');
-    }
+    if (loadingAuth) return;
+    if (user) navigate(user.role === 'owner' ? '/owner/dashboard' : '/tenant/dashboard');
+    else if (window.innerWidth <= 768) navigate('/register');
   }, [user, loadingAuth, navigate]);
-  // In mobile view, while redirecting or loading auth, show a loader instead of a white screen
-  if (loadingAuth || window.innerWidth <= 768) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-[#0f172a]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
-      </div>
-    );
+
+  // Don't block the page while auth is loading — just show content.
+  // The useEffect above will redirect once auth state is known.
+  if (window.innerWidth <= 768 && !loadingAuth && !user) {
+    return null; // Will redirect to /register via useEffect
   }
 
   return (
     <div className="landing-page">
-      {/* Navbar */}
-      <nav className="glass-panel landing-nav slide-up">
-        <Link to="/" className="logo flex items-center gap-2" style={{ textDecoration: 'none' }}>
-          <img src="https://i.pinimg.com/736x/1d/31/58/1d315807fbdbf074612825fcdaa7c9b8.jpg" alt="easyPG Logo" className="logo-img" style={{ height: '36px', width: '36px', borderRadius: '4px', objectFit: 'cover' }} />
+      {/* Ambient orbs */}
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+
+      {/* Nav */}
+      <nav className="landing-nav">
+        <Link to="/" className="landing-logo" style={{ textDecoration: 'none' }}>
+          <div className="logo-icon-wrap">
+            <Building2 size={20} color="#fff" />
+          </div>
+          <span className="logo-text">easy<span>PG</span></span>
         </Link>
-        <div className="nav-links flex items-center gap-4">
+        <div className="nav-actions">
           <ThemeToggle />
-          <Link to="/login" className="btn btn-secondary">Login</Link>
+          <Link to="/login" className="btn btn-ghost">Login</Link>
           <Link to="/register" className="btn btn-primary">
-            Get Started <ArrowRight size={18} />
+            Get Started <ArrowRight size={16} />
           </Link>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <main className="hero flex-col items-center justify-center fade-in">
-        <div className="hero-badge glass-panel">
-          <Zap size={16} color="var(--warning)" />
-          <span>Next-Gen Multi-Tenant SaaS</span>
+      {/* Hero */}
+      <main className="hero-section">
+        <div className="hero-badge fade-in">
+          <Zap size={14} style={{ color: '#fbbf24' }} />
+          <span>Next-Gen Hostel SaaS Platform</span>
         </div>
-        <h1 className="hero-title">
-          Manage Your Hostels with <br />
-          <span className="text-gradient">Intelligent Automation</span>
+
+        <h1 className="hero-title slide-up">
+          Manage Your Properties<br />
+          with <span className="text-gradient">Intelligent Automation</span>
         </h1>
-        <p className="hero-subtitle text-muted">
-          From qr-based tenant onboarding to seamless payments and issue tracking.
-          Everything you need in one powerful SaaS platform.
+
+        <p className="hero-subtitle slide-up delay-100">
+          From QR-based tenant onboarding to automated payments and issue tracking.
+          Everything you need in one powerful platform.
         </p>
 
-        <div className="hero-cta flex gap-4">
+        <div className="hero-cta slide-up delay-200">
           <Link to="/register" className="btn btn-primary btn-lg">
-            Start Free Trial
+            Start Free Trial <ArrowRight size={18} />
           </Link>
-          <a href="#features" className="btn btn-secondary btn-lg">
-            View Features
-          </a>
+          <Link to="/login" className="btn btn-secondary btn-lg">
+            Sign In
+          </Link>
         </div>
 
-        {/* Feature Cards Preview */}
-        <div className="features-grid grid gap-6 mt-12 slide-up" style={{ animationDelay: '0.2s' }}>
-          <div className="feature-card glass-panel flex-col items-center">
-            <div className="icon-wrapper"><BuildingIcon size={24} /></div>
-            <h3>Multi-Hostel</h3>
-            <p className="text-muted text-center">Manage multiple properties from a single account effortlessly.</p>
-          </div>
-          <div className="feature-card glass-panel flex-col items-center">
-            <div className="icon-wrapper"><ShieldCheck size={24} /></div>
-            <h3>QR Onboarding</h3>
-            <p className="text-muted text-center">Tenants scan & join instantly. Automate admissions.</p>
-          </div>
-          <div className="feature-card glass-panel flex-col items-center">
-            <div className="icon-wrapper"><Zap size={24} /></div>
-            <h3>Smart Payments</h3>
-            <p className="text-muted text-center">Integrated ledgers and automatic WhatsApp rent reminders.</p>
-          </div>
+        {/* Stats bar */}
+        <div className="stats-bar fade-in delay-300">
+          <div className="stat-pill"><strong>500+</strong> <span>Properties</span></div>
+          <div className="stat-divider" />
+          <div className="stat-pill"><strong>12k+</strong> <span>Tenants</span></div>
+          <div className="stat-divider" />
+          <div className="stat-pill"><strong>99.9%</strong> <span>Uptime</span></div>
+          <div className="stat-divider" />
+          <div className="stat-pill"><strong>₹2Cr+</strong> <span>Processed</span></div>
+        </div>
+
+        {/* Feature Cards */}
+        <div className="features-grid">
+          {[
+            { icon: <Building2 size={22} />, title: 'Multi-Property', desc: 'Manage all hostels from a single unified dashboard.' },
+            { icon: <QrCode size={22} />, title: 'QR Onboarding', desc: 'Tenants scan and join instantly — zero friction.' },
+            { icon: <Zap size={22} />, title: 'Smart Payments', desc: 'Integrated ledgers and automated rent reminders.' },
+            { icon: <BarChart3 size={22} />, title: 'Live Analytics', desc: 'Real-time occupancy, revenue and trend insights.' },
+            { icon: <Users size={22} />, title: 'Tenant Portal', desc: 'Dedicated portal for notices, complaints & vacate.' },
+            { icon: <Shield size={22} />, title: 'Bank-Grade Security', desc: 'Supabase-powered auth with role-based access.' },
+          ].map((f, i) => (
+            <div key={i} className={`feature-card glass-panel slide-up delay-${(i % 3 + 1) * 100}`}>
+              <div className="feature-icon">{f.icon}</div>
+              <h3>{f.title}</h3>
+              <p>{f.desc}</p>
+            </div>
+          ))}
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="landing-footer">
+        <span className="logo-text small">easy<span>PG</span></span>
+        <span style={{ color: 'var(--text-ghost)', fontSize: '.82rem' }}>© 2026 easyPG. All rights reserved.</span>
+      </footer>
     </div>
   );
 };
 
 export default LandingPage;
-

@@ -51,7 +51,7 @@ const TenantsPage = () => {
   const activeTenants = React.useMemo(() => filteredTenants.filter(t => t.status === 'active' || t.status === 'vacating'), [filteredTenants]);
 
   if (loadingHostels) {
-    return <div className="flex justify-center items-center h-screen"><Loader2 size={48} className="animate-spin text-accent" /></div>;
+    return <div className="flex justify-center items-center h-screen"><Loader2 size={40} className="animate-spin" style={{ color:'var(--aurora-1)' }} /></div>;
   }
 
   const handleApprove = async (id) => {
@@ -133,29 +133,24 @@ const TenantsPage = () => {
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <Loader2 size={48} className="animate-spin text-accent" />
+            <Loader2 size={40} className="animate-spin" style={{ color:'var(--aurora-1)' }} />
           </div>
         ) : (
           <div>
             {/* Redesigned Search Bar */}
-            <div className="search-toolbar flex justify-center mb-8">
-              <div className="search-container glass-panel flex items-center gap-3 px-5 py-3 w-full" style={{ maxWidth: '600px', borderRadius: '12px' }}>
-                <Search size={20} className="text-muted" />
+            <div style={{ display:'flex', justifyContent:'center', marginBottom:'1.5rem' }}>
+              <div className="search-container" style={{ maxWidth:600, width:'100%' }}>
+                <Search size={18} style={{ color:'var(--text-dim)', flexShrink:0 }} />
                 <input
                   type="text"
                   className="search-input"
-                  placeholder="Search name or room #..."
+                  placeholder="Search by name or room number..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  style={{ background: 'transparent', border: 'none', color: '#000', width: '100%', outline: 'none', fontSize: '1.05rem' }}
                 />
                 {searchTerm && (
-                  <button
-                    onClick={() => setSearchTerm('')}
-                    style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
-                    className="hover:text-white transition-colors"
-                  >
-                    <X size={18} />
+                  <button onClick={() => setSearchTerm('')} style={{ background:'transparent', border:'none', color:'var(--text-dim)', cursor:'pointer', display:'flex' }}>
+                    <X size={16} />
                   </button>
                 )}
               </div>
@@ -169,7 +164,7 @@ const TenantsPage = () => {
                 </h3>
                 <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}>
                   {pendingTenants.map(t => (
-                    <div key={t._id} className="glass-panel p-4 slide-up" style={{ border: '1px solid rgba(245, 158, 11, 0.3)' }}>
+                    <div key={t._id} className="glass-panel p-4 slide-up" style={{ border: '1px solid rgba(217,119,6,0.3)', background:'rgba(217,119,6,0.04)' }}>
                       <h4 className="mb-1">{t.user?.name || t.fatherName || "Incoming Tenant"}</h4>
                       <p className="text-muted" style={{ fontSize: '0.875rem' }}>Phone: {t.mobile}</p>
                       <p className="text-muted" style={{ fontSize: '0.875rem' }}>Expected Join: <strong>{new Date(t.admissionDate).toLocaleDateString()}</strong></p>
@@ -263,13 +258,11 @@ const TenantsPage = () => {
 
         {/* View Details Modal */}
         {selectedTenant && (
-          <div className="flex items-center justify-center p-4 fade-in" style={{ background: 'rgba(0,0,0,0.8)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999 }}>
-            <div className="glass-panel p-8 w-full max-w-lg slide-up" style={{ position: 'relative', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <button
-                onClick={() => setSelectedTenant(null)}
-                style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', color: 'var(--muted-text)', cursor: 'pointer' }}
-              >
-                <XCircle size={24} />
+          <div className="modal-backdrop fade-in" onClick={() => setSelectedTenant(null)}>
+            <div className="modal-card slide-up" style={{ maxWidth:560 }} onClick={e => e.stopPropagation()}>
+              <button onClick={() => setSelectedTenant(null)}
+                style={{ position:'absolute', top:'1rem', right:'1rem', background:'transparent', border:'none', color:'var(--text-dim)', cursor:'pointer' }}>
+                <XCircle size={22} />
               </button>
 
               <h3 className="mb-6 flex justify-between items-center border-b border-glass pb-3"> Tenant Details</h3>

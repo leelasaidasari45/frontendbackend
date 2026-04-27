@@ -3,70 +3,91 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#060810" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="apple-touch-icon" href="/icon-192x192.png" />
-    <title>easyPG</title>
-    <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/736x/1d/31/58/1d315807fbdbf074612825fcdaa7c9b8.jpg" />
+    <meta name="description" content="easyPG — Next-generation hostel management platform. Multi-property management, QR onboarding, smart payments and more." />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <title>easyPG — Smart Hostel Management</title>
+
+    <!-- Google Fonts: Space Grotesk + Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
     <style>
+      /* Initial splash loader — Obsidian Nexus */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
       #initial-loader {
         position: fixed;
         inset: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #0f172a; /* Premium Dark */
-        background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);
+        background: #060810;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         z-index: 99999;
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        font-family: 'Inter', system-ui, sans-serif;
         color: white;
       }
-      .logo-pulse {
-        width: 80px;
-        height: 80px;
-        border-radius: 20px;
-        margin-bottom: 24px;
-        box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
-        animation: pulse 2s infinite ease-in-out;
+      .splash-logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        margin-bottom: 28px;
+        object-fit: contain;
+        animation: splash-float 2.4s ease-in-out infinite;
+        filter: drop-shadow(0 0 24px rgba(124, 58, 237, 0.5));
       }
-      .loader-bar {
-        width: 120px;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
+      .splash-brand {
+        font-family: 'Space Grotesk', system-ui, sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        margin-bottom: 32px;
+        color: #f1f5f9;
+      }
+      .splash-brand span { color: #7c3aed; }
+      .loader-track {
+        width: 140px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 99px;
         overflow: hidden;
-        position: relative;
       }
-      .loader-bar::after {
-        content: '';
-        position: absolute;
-        width: 40%;
+      .loader-fill {
+        width: 45%;
         height: 100%;
-        background: #6366f1;
-        border-radius: 10px;
-        animation: loading 1.5s infinite ease-in-out;
+        background: linear-gradient(90deg, #7c3aed, #2563eb);
+        border-radius: 99px;
+        animation: loader-sweep 1.4s ease-in-out infinite;
       }
-      @keyframes pulse {
-        0% { transform: scale(0.95); opacity: 0.8; }
-        50% { transform: scale(1.05); opacity: 1; }
-        100% { transform: scale(0.95); opacity: 0.8; }
+      .splash-caption {
+        margin-top: 20px;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        font-weight: 500;
       }
-      @keyframes loading {
-        0% { left: -40%; }
-        100% { left: 100%; }
+      @keyframes splash-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+      }
+      @keyframes loader-sweep {
+        0% { transform: translateX(-120%); }
+        100% { transform: translateX(280%); }
       }
     </style>
   </head>
   <body>
     <div id="root">
       <div id="initial-loader">
-        <img src="https://i.pinimg.com/736x/1d/31/58/1d315807fbdbf074612825fcdaa7c9b8.jpg" class="logo-pulse" alt="Logo" />
-        <div class="loader-bar"></div>
-        <div style="margin-top: 20px; font-size: 12px; letter-spacing: 0.1em; opacity: 0.5; text-transform: uppercase;">Initializing easyPG</div>
+        <img src="/logo.png" class="splash-logo" alt="easyPG" />
+        <div class="splash-brand">easy<span>PG</span></div>
+        <div class="loader-track"><div class="loader-fill"></div></div>
+        <div class="splash-caption">Initializing workspace</div>
       </div>
     </div>
     <script type="module" src="/src/main.jsx"></script>

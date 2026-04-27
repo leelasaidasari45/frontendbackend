@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BuildingIcon, Users, LayoutDashboard, Loader2, MessageSquare, CheckCircle, Plus } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Loader2, CheckCircle, MessageSquare } from 'lucide-react';
 import api from '../../api';
 import toast from 'react-hot-toast';
 import { useHostel } from '../../context/HostelContext';
@@ -15,91 +14,95 @@ const ComplaintsPage = () => {
 
   const fetchComplaints = async () => {
     if (loadingHostels) return;
-    if (!activeHostel) {
-      setLoading(false);
-      return;
-    }
+    if (!activeHostel) { setLoading(false); return; }
     try {
       setLoading(true);
       const res = await api.get(`/api/owner/complaints?hostelId=${activeHostel._id}`);
       setComplaints(res.data);
-    } catch (err) {
-      toast.error('Failed to load complaints');
-    } finally {
-      setLoading(false);
-    }
+    } catch { toast.error('Failed to load complaints'); }
+    finally { setLoading(false); }
   };
 
-  useEffect(() => {
-    fetchComplaints();
-  }, [activeHostel, loadingHostels]);
-
-  if (loadingHostels) {
-    return <div className="flex justify-center items-center h-screen"><Loader2 size={48} className="animate-spin text-accent" /></div>;
-  }
+  useEffect(() => { fetchComplaints(); }, [activeHostel, loadingHostels]);
 
   const handleResolve = async (id) => {
     try {
       await api.put(`/api/owner/complaints/${id}/resolve`);
-      toast.success("Complaint marked as resolved!");
-      fetchComplaints(); // update local state naturally via refetch
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Failed to resolve complaint");
-    }
+      toast.success('Marked as resolved!');
+      fetchComplaints();
+    } catch (err) { toast.error(err.response?.data?.message || 'Failed'); }
   };
+
+  if (loadingHostels) return <div className="flex justify-center items-center h-screen"><Loader2 size={40} className="animate-spin" style={{ color:'var(--aurora-1)' }} /></div>;
+
+  const open = complaints.filter(c => c.status !== 'resolved');
+  const resolved = complaints.filter(c => c.status === 'resolved');
 
   return (
     <div className="dashboard-layout">
       <OwnerSidebar />
-
       <main className="dashboard-content fade-in">
-        <OwnerHeader 
-          title="Complaints Center" 
-          subtitle="Track and resolve tenant issues" 
-        />
+        <OwnerHeader title="Complaints Center" subtitle="Issue tracking" />
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <Loader2 size={48} className="animate-spin text-accent" />
+            <Loader2 size={40} className="animate-spin" style={{ color:'var(--aurora-1)' }} />
           </div>
         ) : complaints.length === 0 ? (
-          <div className="glass-panel p-8 text-center text-muted">
-            No complaints found. Your property is running perfectly!
+          <div className="glass-panel p-8 text-center" style={{ maxWidth:440, margin:'4rem auto' }}>
+            <MessageSquare size={48} style={{ color:'var(--success)', margin:'0 auto 1rem', display:'block' }} />
+            <h3 style={{ marginBottom:'.5rem' }}>All Clear!</h3>
+            <p style={{ color:'var(--text-dim)' }}>No complaints found. Your property is running perfectly!</p>
           </div>
         ) : (
-          <div className="grid gap-4">
-            {complaints.map(complaint => (
-              <div key={complaint._id} className="glass-panel p-5" style={{ borderLeft: `4px solid ${complaint.status === 'resolved' ? 'var(--success)' : 'var(--warning)'}` }}>
-                <div className="flex justify-between items-start gap-4" style={{ flexWrap: 'wrap' }}>
-                  <div style={{ flex: 1 }}>
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="px-2 py-0.5 rounded text-xs font-bold" style={{
-                        background: complaint.status === 'resolved' ? 'rgba(16,185,129,0.15)' : 'rgba(245,158,11,0.15)',
-                        color: complaint.status === 'resolved' ? 'var(--success)' : 'var(--warning)'
-                      }}>
-                        {complaint.status === 'resolved' ? '✓ Resolved' : '● Open'}
-                      </span>
-                      <span className="text-muted" style={{ fontSize: '0.8rem' }}>{new Date(complaint.createdAt || complaint.created_at).toLocaleDateString()}</span>
-                    </div>
-                    <p style={{ fontWeight: 600, marginBottom: '0.5rem' }}>{complaint.description || complaint.issue || 'No description'}</p>
-                    <div className="flex gap-4" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                      <span>👤 <strong>{complaint.tenantName || 'Unknown'}</strong></span>
-                      <span>🚪 Room <strong>{complaint.roomNumber || 'N/A'}</strong></span>
+          <>
+            {/* Summary */}
+            <div className="stats-grid slide-up" style={{ marginBottom:'1.5rem' }}>
+              <div className="stat-card">
+                <p>Open Issues</p>
+                <h3 style={{ color:'var(--warning)' }}>{open.length}</h3>
+              </div>
+              <div className="stat-card">
+                <p>Resolved</p>
+                <h3 style={{ color:'var(--success)' }}>{resolved.length}</h3>
+              </div>
+            </div>
+
+            <div style={{ display:'flex', flexDirection:'column', gap:'.75rem' }}>
+              {complaints.map(complaint => {
+                const isResolved = complaint.status === 'resolved';
+                return (
+                  <div key={complaint._id} className="glass-panel p-5 fade-in"
+                    style={{ borderLeft:`3px solid ${isResolved ? 'var(--success)' : 'var(--warning)'}` }}>
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:'1rem', flexWrap:'wrap' }}>
+                      <div style={{ flex:1 }}>
+                        <div style={{ display:'flex', alignItems:'center', gap:'.75rem', marginBottom:'.6rem' }}>
+                          <span className={`badge ${isResolved ? 'badge-success' : 'badge-warning'}`}>
+                            {isResolved ? '✓ Resolved' : '● Open'}
+                          </span>
+                          <span style={{ fontSize:'.78rem', color:'var(--text-dim)' }}>
+                            {new Date(complaint.createdAt || complaint.created_at).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <p style={{ fontWeight:600, marginBottom:'.5rem', lineHeight:1.5 }}>
+                          {complaint.description || complaint.issue || 'No description'}
+                        </p>
+                        <div style={{ display:'flex', gap:'1rem', fontSize:'.83rem', color:'var(--text-dim)' }}>
+                          <span>👤 <strong>{complaint.tenantName || 'Unknown'}</strong></span>
+                          <span>🚪 Room <strong>{complaint.roomNumber || 'N/A'}</strong></span>
+                        </div>
+                      </div>
+                      {!isResolved && (
+                        <button className="btn btn-success btn-sm" onClick={() => handleResolve(complaint._id)}>
+                          <CheckCircle size={15} /> Resolve
+                        </button>
+                      )}
                     </div>
                   </div>
-                  {complaint.status !== 'resolved' && (
-                    <button
-                      onClick={() => handleResolve(complaint._id)}
-                      className="btn"
-                      style={{ background: 'var(--success)', color: '#fff', fontWeight: 700, whiteSpace: 'nowrap', padding: '0.5rem 1.25rem' }}
-                    >
-                      <CheckCircle size={16} /> Mark Resolved
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </main>
     </div>
@@ -107,5 +110,3 @@ const ComplaintsPage = () => {
 };
 
 export default ComplaintsPage;
-
-

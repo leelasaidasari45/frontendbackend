@@ -7,261 +7,106 @@ import toast from 'react-hot-toast';
 
 const SelectRolePage = () => {
   const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState(null);
   const { loginContext, user } = useAuth();
   const navigate = useNavigate();
 
   const handleRoleSelection = async (role) => {
+    setSelected(role);
     setLoading(true);
     try {
       const res = await api.put('/api/auth/update-role', { role });
-      
-      // Update local context with new role
       loginContext({ ...user, role: res.data.role, token: res.data.token });
-      
-      toast.success(`Welcome aboard!`);
-      
-      // Navigate to respective dashboard or setup page
-      if (role === 'owner') {
-        navigate('/owner/dashboard');
-      } else {
-        navigate('/tenant/join'); // Send tenants to "Enter Code" page
-      }
+      toast.success('Welcome aboard!');
+      navigate(role === 'owner' ? '/owner/dashboard' : '/tenant/join');
     } catch (err) {
       toast.error(err.response?.data?.error || 'Failed to update role');
-    } finally {
-      setLoading(false);
-    }
+      setSelected(null);
+    } finally { setLoading(false); }
   };
 
   return (
-    <div className="role-selection-wrapper">
-      <div className="mesh-background"></div>
-      
-      <div className="content-container slide-up">
-        <div className="header-section">
-          <h1 className="main-title">Welcome!</h1>
-          <p className="sub-title">Tell us how you'll be using easyPG</p>
-        </div>
+    <div style={{
+      minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center',
+      background:'var(--bg-base)', padding:'1.5rem', position:'relative', overflow:'hidden'
+    }}>
+      {/* Orbs */}
+      <div style={{ position:'fixed', width:500, height:500, borderRadius:'50%', background:'radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%)', filter:'blur(80px)', top:-150, left:-100, pointerEvents:'none' }} />
+      <div style={{ position:'fixed', width:400, height:400, borderRadius:'50%', background:'radial-gradient(circle, rgba(5,150,105,0.15) 0%, transparent 70%)', filter:'blur(80px)', bottom:-100, right:-80, pointerEvents:'none' }} />
 
-        <div className="role-menu glass-effect">
-          {/* Owner Option */}
-          <button 
-            onClick={() => handleRoleSelection('owner')}
-            disabled={loading}
-            className="role-item group"
-          >
-            <div className="icon-circle icon-owner shadow-indigo">
-              <Building2 size={32} />
-            </div>
-            <div className="item-text">
-              <h3 className="item-title">I am a Hostel Owner</h3>
-              <p className="item-desc">I want to manage rooms and tenants</p>
-            </div>
-            <div className="arrow-wrapper">
-              <ChevronRight size={24} className="group-hover:translate-x-1" />
-            </div>
-          </button>
-
-          <div className="menu-divider"></div>
-
-          {/* Tenant Option */}
-          <button 
-            onClick={() => handleRoleSelection('tenant')}
-            disabled={loading}
-            className="role-item group"
-          >
-            <div className="icon-circle icon-tenant shadow-emerald">
-              <User size={32} />
-            </div>
-            <div className="item-text">
-              <h3 className="item-title">I am a Resident</h3>
-              <p className="item-desc">I am looking for or staying in a room</p>
-            </div>
-            <div className="arrow-wrapper">
-              <ChevronRight size={24} className="group-hover:translate-x-1" />
-            </div>
-          </button>
-        </div>
-
-        {loading && (
-          <div className="loading-overlay">
-            <Loader2 className="animate-spin text-white" size={32} />
-            <p>Setting up your dashboard...</p>
+      <div className="slide-up" style={{ position:'relative', zIndex:1, width:'100%', maxWidth:480, display:'flex', flexDirection:'column', alignItems:'center' }}>
+        {/* Logo */}
+        <div style={{ display:'flex', alignItems:'center', gap:'.75rem', marginBottom:'2.5rem' }}>
+          <div style={{ width:44, height:44, background:'linear-gradient(135deg,var(--aurora-1),var(--aurora-2))', borderRadius:12, display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 0 20px rgba(124,58,237,0.4)' }}>
+            <Building2 size={22} color="#fff" />
           </div>
-        )}
+          <span style={{ fontFamily:'Space Grotesk,sans-serif', fontSize:'1.4rem', fontWeight:700, color:'var(--text-bright)', letterSpacing:'-0.03em' }}>easy<span style={{color:'var(--aurora-1)'}}>PG</span></span>
+        </div>
+
+        <div style={{ textAlign:'center', marginBottom:'2.5rem' }}>
+          <h1 style={{ fontSize:'2.2rem', fontWeight:700, marginBottom:'.5rem' }}>Welcome aboard!</h1>
+          <p style={{ color:'var(--text-dim)', fontSize:'1rem' }}>How will you be using easyPG?</p>
+        </div>
+
+        {/* Cards */}
+        <div style={{ width:'100%', display:'flex', flexDirection:'column', gap:'.75rem' }}>
+          {[
+            {
+              role: 'owner',
+              icon: <Building2 size={28} color="#fff" />,
+              iconBg: 'linear-gradient(135deg,#7c3aed,#2563eb)',
+              glow: 'rgba(124,58,237,0.2)',
+              title: 'I am a Hostel Owner',
+              desc: 'Manage rooms, tenants, payments and analytics',
+              badge: 'Owner',
+              badgeColor: '#a78bfa',
+            },
+            {
+              role: 'tenant',
+              icon: <User size={28} color="#fff" />,
+              iconBg: 'linear-gradient(135deg,#059669,#0891b2)',
+              glow: 'rgba(5,150,105,0.2)',
+              title: 'I am a Resident',
+              desc: 'Join a PG, pay rent, and manage my stay',
+              badge: 'Tenant',
+              badgeColor: '#34d399',
+            },
+          ].map(({ role, icon, iconBg, glow, title, desc, badge, badgeColor }) => (
+            <button
+              key={role}
+              onClick={() => handleRoleSelection(role)}
+              disabled={loading}
+              style={{
+                width:'100%', display:'flex', alignItems:'center', gap:'1.25rem',
+                padding:'1.5rem', background:'var(--bg-surface)',
+                border:`1px solid ${selected===role ? 'var(--border-active)' : 'var(--border-muted)'}`,
+                borderRadius:'var(--r-xl)', cursor:loading?'wait':'pointer',
+                textAlign:'left', transition:'all 200ms',
+                boxShadow: selected===role ? `0 0 20px ${glow}` : 'none',
+                opacity: loading && selected!==role ? 0.5 : 1,
+              }}
+              onMouseEnter={e => { if(!loading) e.currentTarget.style.borderColor='var(--border-active)'; e.currentTarget.style.boxShadow=`0 0 20px ${glow}`; }}
+              onMouseLeave={e => { if(selected!==role){ e.currentTarget.style.borderColor='var(--border-muted)'; e.currentTarget.style.boxShadow='none'; } }}
+            >
+              <div style={{ width:60, height:60, borderRadius:'50%', background:iconBg, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, boxShadow:`0 8px 20px ${glow}` }}>
+                {loading && selected===role ? <Loader2 size={24} color="#fff" className="animate-spin" /> : icon}
+              </div>
+              <div style={{ flex:1 }}>
+                <div style={{ display:'flex', alignItems:'center', gap:'.6rem', marginBottom:'.3rem' }}>
+                  <h3 style={{ fontSize:'1.1rem', margin:0 }}>{title}</h3>
+                  <span style={{ fontSize:'.72rem', fontWeight:600, padding:'.15rem .5rem', borderRadius:'99px', background:`${glow}`, color:badgeColor }}>{badge}</span>
+                </div>
+                <p style={{ fontSize:'.87rem', color:'var(--text-dim)', lineHeight:1.5 }}>{desc}</p>
+              </div>
+              <ChevronRight size={20} style={{ color:'var(--text-ghost)', flexShrink:0 }} />
+            </button>
+          ))}
+        </div>
+
+        <p style={{ marginTop:'2rem', fontSize:'.82rem', color:'var(--text-ghost)', textAlign:'center' }}>
+          You can only select this once. Choose carefully.
+        </p>
       </div>
-
-      <style>{`
-        .role-selection-wrapper {
-          min-height: 100vh;
-          background-color: #f8fafc;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          overflow: hidden;
-          font-family: 'Outfit', sans-serif;
-        }
-
-        .mesh-background {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: radial-gradient(circle at 20% 20%, #e0e7ff 0%, transparent 40%),
-                      radial-gradient(circle at 80% 80%, #d1fae5 0%, transparent 40%);
-          filter: blur(100px);
-          opacity: 0.8;
-        }
-
-        .content-container {
-          position: relative;
-          z-index: 10;
-          width: 100%;
-          max-width: 480px;
-          padding: 2rem;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .header-section {
-          text-align: center;
-          margin-bottom: 3rem;
-        }
-
-        .main-title {
-          font-size: 3.5rem;
-          font-weight: 800;
-          color: #1e293b;
-          margin-bottom: 0.5rem;
-          letter-spacing: -2px;
-          background: linear-gradient(to bottom, #1e293b, #64748b);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        .sub-title {
-          color: #64748b;
-          font-size: 1.1rem;
-        }
-
-        .role-menu {
-          width: 100%;
-          background: rgba(255, 255, 255, 0.7);
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 1);
-          border-radius: 2.5rem;
-          padding: 1rem;
-          box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
-        }
-
-        .role-item {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          padding: 1.5rem;
-          background: none;
-          border: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          border-radius: 2rem;
-          text-align: left;
-        }
-
-        .role-item:hover {
-          background: rgba(0, 0, 0, 0.02);
-        }
-
-        .icon-circle {
-          width: 64px;
-          height: 64px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 1.5rem;
-          flex-shrink: 0;
-          transition: all 0.3s ease;
-        }
-
-        .icon-owner {
-          background: #4f46e5;
-          color: white;
-        }
-
-        .shadow-indigo {
-          box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
-        }
-
-        .icon-tenant {
-          background: #10b981;
-          color: white;
-        }
-
-        .shadow-emerald {
-          box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
-        }
-
-        .role-item:hover .icon-circle {
-          transform: scale(1.1);
-        }
-
-        .item-text {
-          flex: 1;
-        }
-
-        .item-title {
-          color: #1e293b;
-          font-size: 1.25rem;
-          font-weight: 700;
-          margin-bottom: 0.25rem;
-        }
-
-        .item-desc {
-          color: #64748b;
-          font-size: 0.9rem;
-        }
-
-        .arrow-wrapper {
-          color: #cbd5e1;
-          transition: all 0.3s ease;
-        }
-
-        .role-item:hover .arrow-wrapper {
-          color: #1e293b;
-        }
-
-        .menu-divider {
-          height: 1px;
-          background: linear-gradient(to right, transparent, rgba(0,0,0,0.05), transparent);
-          margin: 0.5rem 0;
-        }
-
-        .loading-overlay {
-          margin-top: 2rem;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 0.5rem;
-          color: #64748b;
-          font-size: 0.9rem;
-        }
-
-        .slide-up {
-          animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 480px) {
-          .main-title { font-size: 2.5rem; }
-          .icon-circle { width: 56px; height: 56px; }
-          .role-item { padding: 1rem; }
-        }
-      `}</style>
     </div>
   );
 };

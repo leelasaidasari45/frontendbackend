@@ -5,17 +5,20 @@ const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    return savedTheme === 'dark';
+    // Default to dark mode if no preference saved
+    return savedTheme !== 'light';
   });
 
   useEffect(() => {
     const root = window.document.documentElement;
-    if (isDarkMode) {
-      root.classList.add('dark-mode');
-      localStorage.setItem('theme', 'dark');
-    } else {
+    if (!isDarkMode) {
+      root.classList.add('light-mode');
       root.classList.remove('dark-mode');
       localStorage.setItem('theme', 'light');
+    } else {
+      root.classList.remove('light-mode');
+      root.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'dark');
     }
   }, [isDarkMode]);
 

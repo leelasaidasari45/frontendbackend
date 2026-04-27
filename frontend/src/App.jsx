@@ -74,8 +74,6 @@ import { ThemeProvider } from './context/ThemeContext';
 
 
 function AppContent() {
-  const { loadingAuth } = useAuth();
-  
   // Check if we already splashed this session
   const [showSplash, setShowSplash] = React.useState(() => {
     const isMobile = window.innerWidth <= 768;
@@ -88,16 +86,15 @@ function AppContent() {
       const timer = setTimeout(() => {
         setShowSplash(false);
         sessionStorage.setItem('hasSplashed', 'true');
-      }, 2800); // 2.5s display + 0.3s fade buffer
+      }, 2800);
       return () => clearTimeout(timer);
     }
   }, [showSplash]);
 
   if (showSplash) return <MobileSplash />;
 
-  // GLOBAL SPINNER: If backend is still cold, show the premium loader for ALL pages
-  if (loadingAuth) return <LoadingScreen />;
-
+  // No more global spinner — pages render immediately.
+  // Only ProtectedRoute components block while loadingAuth is true.
   return (
     <div className="app-container relative">
       <Toaster position="top-right" 
