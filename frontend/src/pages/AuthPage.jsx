@@ -64,8 +64,7 @@ const AuthPage = () => {
         {/* Left branding panel */}
         <div className="auth-branding">
           <div className="auth-brand-top">
-            <div className="auth-logo-wrap"><Building2 size={22} color="#fff" /></div>
-            <span className="logo-text">easy<span>PG</span></span>
+            <img src="/logo.png" alt="easyPG" style={{ height: 44, width: 'auto', objectFit: 'contain' }} />
           </div>
           <div className="auth-brand-body">
             <h2 className="auth-brand-headline">Your hostel,<br /><span className="text-gradient">reimagined.</span></h2>

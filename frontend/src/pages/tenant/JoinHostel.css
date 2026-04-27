@@ -1,0 +1,258 @@
+/* JoinHostel — mobile-first premium design */
+
+.join-page {
+  min-height: 100vh;
+  min-height: 100dvh; /* dynamic viewport for mobile browsers */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: var(--bg-base);
+  padding: 1rem 1rem 2rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ambient orbs */
+.join-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+.join-orb-1 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(124,58,237,0.2) 0%, transparent 70%);
+  top: -100px; left: -80px;
+  animation: float 9s ease-in-out infinite;
+}
+.join-orb-2 {
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(5,150,105,0.14) 0%, transparent 70%);
+  bottom: -60px; right: -60px;
+  animation: float 7s ease-in-out infinite reverse;
+}
+
+/* Card */
+.join-card {
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 1;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Header row */
+.join-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 0 1rem;
+  margin-bottom: .5rem;
+}
+.join-logo-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--aurora-1), var(--aurora-2));
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 14px rgba(124,58,237,0.4);
+}
+.join-logo-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: -0.03em;
+}
+.join-logo-text span { color: var(--aurora-1); }
+
+.join-back-btn {
+  display: flex; align-items: center; gap: .4rem;
+  background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md); color: var(--text-dim);
+  font-size: .82rem; font-weight: 600; padding: .4rem .9rem;
+  cursor: pointer; transition: all 200ms;
+  font-family: 'Inter', sans-serif;
+}
+.join-back-btn:hover { border-color: var(--border-active); color: var(--text-bright); }
+
+/* Step indicator */
+.join-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 1.75rem;
+  position: relative;
+  padding: 0 .5rem;
+}
+.join-step-line {
+  position: absolute;
+  top: 13px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: var(--border-subtle);
+  z-index: 0;
+}
+.join-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+.join-step-dot {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 700;
+  background: var(--bg-elevated);
+  border: 2px solid var(--border-subtle);
+  color: var(--text-ghost);
+  transition: all 250ms;
+}
+.join-step.active .join-step-dot {
+  background: var(--aurora-1);
+  border-color: var(--aurora-1);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(124,58,237,0.45);
+}
+.join-step span {
+  font-size: .7rem;
+  color: var(--text-ghost);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.join-step.active span { color: var(--text-dim); }
+
+/* Body */
+.join-body {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--r-xl);
+  padding: 2rem 1.75rem;
+  box-shadow: var(--shadow-md), 0 0 40px rgba(124,58,237,0.06);
+}
+
+/* Step 1 */
+.join-icon-wrap {
+  width: 56px; height: 56px;
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.2);
+  border-radius: var(--r-xl);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+h2.join-body { margin-bottom: .4rem; }
+.join-subtitle {
+  color: var(--text-dim);
+  font-size: .9rem;
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+/* Large code input */
+.code-input-wrap {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+.code-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: var(--bg-elevated);
+  border: 2px solid var(--border-muted);
+  border-radius: var(--r-lg);
+  color: var(--text-bright);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-align: center;
+  transition: all 200ms;
+  outline: none;
+}
+.code-input::placeholder { color: var(--text-ghost); font-size: 1.2rem; letter-spacing: .05em; }
+.code-input:focus {
+  border-color: var(--aurora-1);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Divider */
+.join-divider {
+  display: flex; align-items: center; gap: .75rem;
+  color: var(--text-ghost); font-size: .82rem;
+  margin: 1.25rem 0;
+}
+.join-divider::before, .join-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border-subtle);
+}
+
+/* Hostel found banner */
+.hostel-found-banner {
+  display: flex; align-items: center; gap: .6rem;
+  background: rgba(5,150,105,0.1);
+  border: 1px solid rgba(5,150,105,0.25);
+  border-radius: var(--r-md);
+  padding: .75rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--text-bright);
+}
+
+/* File upload zone */
+.file-upload-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+  width: 100%;
+  padding: 1.5rem;
+  background: var(--bg-elevated);
+  border: 2px dashed var(--border-muted);
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  transition: all 200ms;
+  text-align: center;
+  min-height: 100px;
+}
+.file-upload-zone:hover {
+  border-color: var(--aurora-1);
+  background: rgba(124,58,237,0.06);
+}
+
+/* Pending icon */
+.pending-icon-wrap {
+  width: 80px; height: 80px;
+  background: rgba(5,150,105,0.12);
+  border: 1px solid rgba(5,150,105,0.25);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem;
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%,100% { box-shadow: 0 0 12px rgba(5,150,105,0.2); }
+  50% { box-shadow: 0 0 28px rgba(5,150,105,0.5); }
+}
+
+/* form-label icons — reset vertical-align */
+.form-label svg { vertical-align: middle; }
+
+/* Safe area for Capacitor */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .join-card { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+}
+
+@media (max-width: 480px) {
+  .join-page { padding: .75rem .75rem 1.5rem; }
+  .join-body { padding: 1.5rem 1.25rem; }
+  .code-input { font-size: 1.3rem; }
+}

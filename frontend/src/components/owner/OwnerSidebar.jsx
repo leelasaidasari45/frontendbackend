@@ -18,9 +18,9 @@ const OwnerSidebar = () => {
   return (
     <aside className={`sidebar ${expanded ? 'sidebar-exp' : ''}`}>
       {/* Logo */}
-      <Link to="/" style={{ textDecoration: 'none' }}>
+      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div className="logo-wrap" title="easyPG">
-          <Building2 size={20} color="#fff" />
+          <img src="/logo.png" alt="easyPG" style={{ width: 36, height: 36, objectFit: 'contain', borderRadius: 6 }} />
         </div>
       </Link>
 

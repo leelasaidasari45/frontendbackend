@@ -104,8 +104,10 @@ const TenantDashboard = () => {
     <div className="dashboard-layout">
       {/* Sidebar (mobile = bottom nav) */}
       <aside className="sidebar">
-        <Link to="/" style={{ textDecoration:'none' }}>
-          <div className="logo-wrap" title="easyPG"><Building2 size={20} color="#fff" /></div>
+        <Link to="/" style={{ textDecoration:'none', display:'flex', alignItems:'center', justifyContent:'center' }}>
+          <div className="logo-wrap" title="easyPG">
+            <img src="/logo.png" alt="easyPG" style={{ width: 36, height: 36, objectFit: 'contain', borderRadius: 6 }} />
+          </div>
         </Link>
         <div className="sidebar-divider" />
         <nav className="sidebar-nav">

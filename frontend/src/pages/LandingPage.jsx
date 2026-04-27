@@ -30,10 +30,7 @@ const LandingPage = () => {
       {/* Nav */}
       <nav className="landing-nav">
         <Link to="/" className="landing-logo" style={{ textDecoration: 'none' }}>
-          <div className="logo-icon-wrap">
-            <Building2 size={20} color="#fff" />
-          </div>
-          <span className="logo-text">easy<span>PG</span></span>
+          <img src="/logo.png" alt="easyPG" className="logo-img-full" />
         </Link>
         <div className="nav-actions">
           <ThemeToggle />
@@ -102,7 +99,7 @@ const LandingPage = () => {
 
       {/* Footer */}
       <footer className="landing-footer">
-        <span className="logo-text small">easy<span>PG</span></span>
+        <img src="/logo.png" alt="easyPG" style={{ height: 32, objectFit: 'contain' }} />
         <span style={{ color: 'var(--text-ghost)', fontSize: '.82rem' }}>© 2026 easyPG. All rights reserved.</span>
       </footer>
     </div>

@@ -53,10 +53,7 @@ const ForgotPasswordPage = () => {
             <div className="auth-card glass-panel slide-up">
                 <div className="auth-header flex-col items-center gap-2">
                     <Link to="/" className="flex items-center gap-2" style={{ textDecoration: 'none' }}>
-                        <div style={{ width:38, height:38, background:'linear-gradient(135deg,var(--aurora-1),var(--aurora-2))', borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 0 16px rgba(124,58,237,0.4)' }}>
-                          <Mail size={18} color="#fff" />
-                        </div>
-                        <span style={{ fontFamily:'Space Grotesk,sans-serif', fontWeight:700, fontSize:'1.1rem', color:'var(--text-bright)' }}>easy<span style={{color:'var(--aurora-1)'}}>PG</span></span>
+                        <img src="/logo.png" alt="easyPG" style={{ height: '44px', width: 'auto', objectFit: 'contain' }} />
                     </Link>
                     <h2>Forgot Password?</h2>
                     <p className="text-muted">Enter your email and we'll send you a reset link</p>

@@ -36,11 +36,8 @@ const SelectRolePage = () => {
 
       <div className="slide-up" style={{ position:'relative', zIndex:1, width:'100%', maxWidth:480, display:'flex', flexDirection:'column', alignItems:'center' }}>
         {/* Logo */}
-        <div style={{ display:'flex', alignItems:'center', gap:'.75rem', marginBottom:'2.5rem' }}>
-          <div style={{ width:44, height:44, background:'linear-gradient(135deg,var(--aurora-1),var(--aurora-2))', borderRadius:12, display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 0 20px rgba(124,58,237,0.4)' }}>
-            <Building2 size={22} color="#fff" />
-          </div>
-          <span style={{ fontFamily:'Space Grotesk,sans-serif', fontSize:'1.4rem', fontWeight:700, color:'var(--text-bright)', letterSpacing:'-0.03em' }}>easy<span style={{color:'var(--aurora-1)'}}>PG</span></span>
+        <div style={{ marginBottom:'2.5rem' }}>
+          <img src="/logo.png" alt="easyPG" style={{ height: 48, width: 'auto', objectFit: 'contain' }} />
         </div>
 
         <div style={{ textAlign:'center', marginBottom:'2.5rem' }}>

@@ -48,24 +48,19 @@ const ProtectedRoute = ({ children, roleType }) => {
   return children;
 };
 
-// Global Loading Fallback
 const LoadingScreen = () => (
-  <div className="flex flex-col justify-center items-center h-screen bg-[#0f172a] text-white">
-    <div className="relative flex flex-col items-center">
-      <div className="w-16 h-16 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin"></div>
-      <div className="mt-8 text-center text-[11px] uppercase tracking-[0.2em] opacity-60 font-medium">
-        Loading Dashboard Please Wait<span className="animate-pulse">...</span>
-      </div>
-    </div>
-    <style>{`
-      @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
-      }
-      .animate-pulse {
-        animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      }
-    `}</style>
+  <div style={{
+    display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
+    minHeight:'100vh', background:'var(--bg-base)'
+  }}>
+    <div style={{
+      width:48, height:48, border:'3px solid var(--border-subtle)',
+      borderTopColor:'var(--aurora-1)', borderRadius:'50%',
+      animation:'spin 1s linear infinite'
+    }} />
+    <p style={{ marginTop:'1rem', fontSize:'.78rem', color:'var(--text-ghost)', letterSpacing:'.08em', textTransform:'uppercase', fontWeight:500 }}>
+      Loading easyPG…
+    </p>
   </div>
 );
 
@@ -97,14 +92,23 @@ function AppContent() {
   // Only ProtectedRoute components block while loadingAuth is true.
   return (
     <div className="app-container relative">
-      <Toaster position="top-right" 
+      <Toaster
+        position="top-center"
         toastOptions={{
+          duration: 3500,
           style: {
-            background: '#1e293b',
-            color: '#fff',
-            border: '1px solid rgba(255,255,255,0.1)'
-          }
-        }} 
+            background: 'var(--bg-elevated)',
+            color: 'var(--text-bright)',
+            border: '1px solid var(--border-muted)',
+            borderRadius: '10px',
+            boxShadow: 'var(--shadow-md)',
+            fontSize: '.9rem',
+            fontFamily: "'Inter', sans-serif",
+            padding: '.75rem 1rem',
+          },
+          success: { iconTheme: { primary: '#34d399', secondary: 'transparent' } },
+          error: { iconTheme: { primary: '#f87171', secondary: 'transparent' } },
+        }}
       />
       <Suspense fallback={<LoadingScreen />}>
         <Routes>

@@ -32,13 +32,12 @@
         color: white;
       }
       .splash-logo {
-        width: 56px;
-        height: 56px;
-        border-radius: 14px;
-        margin-bottom: 28px;
+        width: 200px;
+        height: auto;
+        margin-bottom: 36px;
         object-fit: contain;
         animation: splash-float 2.4s ease-in-out infinite;
-        filter: drop-shadow(0 0 24px rgba(124, 58, 237, 0.5));
+        filter: drop-shadow(0 0 20px rgba(0, 212, 170, 0.35));
       }
       .splash-brand {
         font-family: 'Space Grotesk', system-ui, sans-serif;
@@ -59,7 +58,7 @@
       .loader-fill {
         width: 45%;
         height: 100%;
-        background: linear-gradient(90deg, #7c3aed, #2563eb);
+        background: linear-gradient(90deg, #00d4aa, #2563eb);
         border-radius: 99px;
         animation: loader-sweep 1.4s ease-in-out infinite;
       }
@@ -85,7 +84,6 @@
     <div id="root">
       <div id="initial-loader">
         <img src="/logo.png" class="splash-logo" alt="easyPG" />
-        <div class="splash-brand">easy<span>PG</span></div>
         <div class="loader-track"><div class="loader-fill"></div></div>
         <div class="splash-caption">Initializing workspace</div>
       </div>

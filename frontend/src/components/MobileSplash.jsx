@@ -35,27 +35,23 @@ const MobileSplash = () => {
       }} />
 
       <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:'1rem', position:'relative', zIndex:1, animation:'splashFadeIn 0.8s cubic-bezier(0.16,1,0.3,1) forwards' }}>
-        {/* Logo icon */}
-        <div style={{
-          width:72, height:72, borderRadius:20,
-          background:'linear-gradient(135deg,#7c3aed,#2563eb)',
-          display:'flex', alignItems:'center', justifyContent:'center',
-          boxShadow:'0 0 32px rgba(124,58,237,0.5)',
-          animation:'splashFloat 2.5s ease-in-out infinite'
-        }}>
-          <Building2 size={36} color="#fff" />
-        </div>
-        <div style={{ fontFamily:"'Space Grotesk',system-ui,sans-serif", fontSize:'1.6rem', fontWeight:700, color:'#f1f5f9', letterSpacing:'-0.03em' }}>
-          easy<span style={{ color:'#7c3aed' }}>PG</span>
-        </div>
-        <p style={{ fontSize:'.82rem', color:'rgba(255,255,255,0.35)', letterSpacing:'.08em', textTransform:'uppercase', fontWeight:500 }}>
-          Smart Hostel Management
-        </p>
+        {/* Logo image */}
+        <img
+          src="/logo.png"
+          alt="easyPG"
+          style={{
+            width: 160,
+            height: 'auto',
+            objectFit: 'contain',
+            animation: 'splashFloat 2.5s ease-in-out infinite',
+            filter: 'drop-shadow(0 0 20px rgba(0,212,170,0.35))'
+          }}
+        />
       </div>
 
       <div style={{ position:'absolute', bottom:'3.5rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'.75rem', animation:'splashSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both' }}>
         <div style={{ width:120, height:2, background:'rgba(255,255,255,0.06)', borderRadius:99, overflow:'hidden', position:'relative' }}>
-          <div style={{ position:'absolute', width:'45%', height:'100%', background:'linear-gradient(90deg,#7c3aed,#2563eb)', borderRadius:99, animation:'splashSweep 1.4s ease-in-out infinite' }} />
+          <div style={{ position:'absolute', width:'45%', height:'100%', background:'linear-gradient(90deg,#00d4aa,#2563eb)', borderRadius:99, animation:'splashSweep 1.4s ease-in-out infinite' }} />
         </div>
         <p style={{ fontSize:'.72rem', color:'rgba(255,255,255,0.3)', fontWeight:500, letterSpacing:'.04em' }}>{status}</p>
       </div>
