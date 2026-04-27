@@ -1,7 +1,11 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
+import api from './api';
+
+// Warm up the backend immediately on app load (prevents Render cold start delay)
+api.get('/').catch(() => {});
+
 
 // Lazy load all pages
 const LandingPage = lazy(() => import('./pages/LandingPage'));
@@ -26,21 +30,35 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 const ProtectedRoute = ({ children, roleType }) => {
   const { user, loadingAuth } = useAuth();
   
-  if (loadingAuth) {
-    return <div className="flex justify-center items-center h-screen"><Loader2 size={48} className="animate-spin text-accent" /></div>;
+  // If we have a cached user, render immediately — don't block with spinner
+  if (loadingAuth && !user) {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 3, zIndex: 9999 }}>
+        <div style={{
+          height: '100%',
+          background: 'linear-gradient(90deg, var(--aurora-1), var(--aurora-2), var(--aurora-3))',
+          animation: 'progressBar 1.5s ease-in-out infinite',
+          backgroundSize: '200% 100%',
+        }} />
+        <style>{`
+          @keyframes progressBar {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+          }
+        `}</style>
+      </div>
+    );
   }
 
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
-  // Redirect unassigned users to role selection
   if (user.role === 'unassigned' && window.location.pathname !== '/select-role') {
     return <Navigate to="/select-role" replace />;
   }
 
   if (roleType && user.role !== roleType) {
-    // If owner tries tenant page or vice versa, send to their own landing dashboard
     const destination = user.role === 'owner' ? '/owner/dashboard' : '/tenant/dashboard';
     return <Navigate to={destination} replace />;
   }
@@ -48,19 +66,21 @@ const ProtectedRoute = ({ children, roleType }) => {
   return children;
 };
 
+// Slim top progress bar — far less jarring than a full-screen spinner
 const LoadingScreen = () => (
-  <div style={{
-    display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
-    minHeight:'100vh', background:'var(--bg-base)'
-  }}>
+  <div style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 3, zIndex: 9999, background: 'var(--bg-base)' }}>
     <div style={{
-      width:48, height:48, border:'3px solid var(--border-subtle)',
-      borderTopColor:'var(--aurora-1)', borderRadius:'50%',
-      animation:'spin 1s linear infinite'
+      height: '100%',
+      background: 'linear-gradient(90deg, var(--aurora-1), var(--aurora-2), var(--aurora-3))',
+      backgroundSize: '200% 100%',
+      animation: 'progressSweep 1.2s ease-in-out infinite',
     }} />
-    <p style={{ marginTop:'1rem', fontSize:'.78rem', color:'var(--text-ghost)', letterSpacing:'.08em', textTransform:'uppercase', fontWeight:500 }}>
-      Loading easyPG…
-    </p>
+    <style>{`
+      @keyframes progressSweep {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+    `}</style>
   </div>
 );
 
