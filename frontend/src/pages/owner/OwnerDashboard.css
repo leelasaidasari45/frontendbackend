@@ -4,17 +4,18 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-  width: 80px !important;
+  width: 72px !important;
   height: 100vh !important;
   position: sticky;
   top: 0;
+  padding: 1.25rem 0 !important;
   box-shadow: 8px 0 32px rgba(0, 0, 0, 0.3);
   transition: width var(--transition-slow);
 }
 
 .sidebar-exp {
-  width: 260px !important;
-  padding: 2rem 1.25rem !important;
+  width: 240px !important;
+  padding: 1.25rem 1.15rem !important;
 }
 
 .nav-item {

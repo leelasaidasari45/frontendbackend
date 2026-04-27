@@ -18,7 +18,7 @@ const OwnerSidebar = () => {
   return (
     <aside className={`sidebar ${expanded ? 'sidebar-exp' : ''}`}>
       {/* Logo */}
-      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', marginBottom: '1.5rem' }}>
+      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', marginBottom: '1rem' }}>
         <div className="logo-wrap" title="easyPG" style={{ 
           width: 52, height: 52, borderRadius: 14, 
           background: 'linear-gradient(135deg, var(--aurora-1), var(--aurora-2))',
