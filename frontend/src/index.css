@@ -466,23 +466,20 @@ a:focus-visible, button:focus-visible {
 /* Tenant row */
 .tenant-row-item { width:100%; }
 .tenant-row-grid {
-  display:grid; grid-template-columns:2fr 1fr 1.2fr auto;
-  align-items:center; padding:1rem 1.25rem; gap:1.5rem;
+  display:grid; grid-template-columns:1fr 1fr 1fr 1.5fr;
+  align-items:start; padding:1.25rem 0; gap:1.5rem;
 }
-.tenant-label { color:var(--text-ghost); font-size:.72rem; margin-bottom:.3rem; display:block; text-transform:uppercase; letter-spacing:.04em; }
-.tenant-value { font-size:.95rem; font-weight:500; color:var(--text-bright); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.tenant-actions-col { display:flex; flex-direction:column; gap:.35rem; align-items:flex-end; }
+.tenant-label { color:var(--text-ghost); font-size:.8rem; margin-bottom:.4rem; display:block; }
+.tenant-value { font-size:1rem; font-weight:500; color:var(--text-bright); }
 .tenant-action-link {
-  display:inline-flex; align-items:center; gap:.35rem;
-  background:none; border:none; cursor:pointer;
-  font-weight:600; font-size:.8rem; letter-spacing:.01em;
-  padding:.3rem .65rem; border-radius:var(--r-full);
-  transition:all var(--transition); white-space:nowrap;
+  display:block; width:100%; border:none; border-radius:var(--r-sm);
+  cursor:pointer; font-weight:600; font-size:.82rem;
+  text-align:center; transition:all var(--transition); padding:.45rem .9rem;
 }
-.tenant-action-link.view { color:var(--aurora-1); background:rgba(124,58,237,0.08); }
-.tenant-action-link.view:hover { background:rgba(124,58,237,0.18); color:#c4b5fd; }
-.tenant-action-link.danger { color:var(--danger); background:rgba(220,38,38,0.07); }
-.tenant-action-link.danger:hover { background:rgba(220,38,38,0.15); }
+.tenant-action-link:first-child { background:var(--aurora-1); color:#fff; margin-bottom:.4rem; }
+.tenant-action-link:first-child:hover { background:var(--accent-hover); }
+.tenant-action-link:last-child { background:rgba(220,38,38,0.1); color:var(--danger); border:1px solid rgba(220,38,38,0.2); }
+.tenant-action-link:last-child:hover { background:rgba(220,38,38,0.2); }
 
 /* Form grid */
 .form-grid-2 { grid-template-columns:1fr 1fr; }
