@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Building2, Loader2, TrendingUp, TrendingDown, Users, DoorOpen, IndianRupee, Plus, Bell, Utensils } from 'lucide-react';
 import { useHostel } from '../../context/HostelContext';
