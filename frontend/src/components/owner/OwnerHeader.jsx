@@ -39,7 +39,7 @@ const OwnerHeader = ({ title, subtitle }) => {
       toast.success('QR downloaded!');
     };
 
-  const initials = user?.name ? user.name.charAt(0).toUpperCase() : 'O';
+
 
   return (
     <>
@@ -77,7 +77,7 @@ const OwnerHeader = ({ title, subtitle }) => {
           )}
 
           {/* Avatar + Logout */}
-          <div className="avatar">{initials}</div>
+
           <button onClick={logoutContext} className="header-logout-btn" title="Logout">
             <LogOut size={16} /> <span className="btn-label">Logout</span>
           </button>
