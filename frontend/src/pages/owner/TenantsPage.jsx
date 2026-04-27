@@ -227,21 +227,20 @@ const TenantsPage = () => {
 
                         {/* Date Column */}
                         <div className="flex-col">
-                          <span className="tenant-label">joindate</span>
+                          <span className="tenant-label">Join Date</span>
                           <span className="tenant-value">{new Date(t.admissionDate).toLocaleDateString()}</span>
                         </div>
 
-                        {/* Actions Column - Aligned to headers/values */}
-                        <div className="flex-col">
+                        {/* Actions Column */}
+                        <div className="tenant-actions-col">
                           <button
-                            className="tenant-action-link"
+                            className="tenant-action-link view"
                             onClick={() => setSelectedTenant(t)}
                           >
                             View Details
                           </button>
-
                           <button
-                            className="tenant-action-link"
+                            className="tenant-action-link danger"
                             onClick={() => handleCompleteVacate(t._id)}
                           >
                             {t.status === 'vacating' ? 'Finalize' : 'Vacate'}
