@@ -68,33 +68,49 @@ const ComplaintsPage = () => {
               </div>
             </div>
 
-            <div style={{ display:'flex', flexDirection:'column', gap:'.75rem' }}>
+            <div style={{ display:'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap:'1.25rem' }}>
               {complaints.map(complaint => {
                 const isResolved = complaint.status === 'resolved';
                 return (
-                  <div key={complaint._id} className="glass-panel p-5 fade-in"
-                    style={{ borderLeft:`3px solid ${isResolved ? 'var(--success)' : 'var(--warning)'}` }}>
-                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:'1rem', flexWrap:'wrap' }}>
-                      <div style={{ flex:1 }}>
-                        <div style={{ display:'flex', alignItems:'center', gap:'.75rem', marginBottom:'.6rem' }}>
-                          <span className={`badge ${isResolved ? 'badge-success' : 'badge-warning'}`}>
-                            {isResolved ? '✓ Resolved' : '● Open'}
-                          </span>
-                          <span style={{ fontSize:'.78rem', color:'var(--text-dim)' }}>
-                            {new Date(complaint.createdAt || complaint.created_at).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <p style={{ fontWeight:600, marginBottom:'.5rem', lineHeight:1.5 }}>
-                          {complaint.description || complaint.issue || 'No description'}
-                        </p>
-                        <div style={{ display:'flex', gap:'1rem', fontSize:'.83rem', color:'var(--text-dim)' }}>
-                          <span>👤 <strong>{complaint.tenantName || 'Unknown'}</strong></span>
-                          <span>🚪 Room <strong>{complaint.roomNumber || 'N/A'}</strong></span>
-                        </div>
+                  <div key={complaint._id} className="glass-panel slide-up"
+                    style={{ 
+                      display: 'flex', flexDirection: 'column', padding: '1.25rem',
+                      borderTop: `4px solid ${isResolved ? 'var(--success)' : 'var(--warning)'}`,
+                      position: 'relative', overflow: 'hidden'
+                    }}>
+                    
+                    {/* Subtle Background Glow based on status */}
+                    <div style={{
+                      position: 'absolute', top: 0, right: 0, width: '100px', height: '100px',
+                      background: isResolved ? 'rgba(16, 185, 129, 0.05)' : 'rgba(245, 158, 11, 0.05)',
+                      filter: 'blur(30px)', borderRadius: '50%', pointerEvents: 'none'
+                    }} />
+
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1rem' }}>
+                      <span className={`badge ${isResolved ? 'badge-success' : 'badge-warning'}`} style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }}>
+                        {isResolved ? '✓ Resolved' : '● Open'}
+                      </span>
+                      <span style={{ fontSize:'.75rem', color:'var(--text-ghost)', fontWeight: '500' }}>
+                        {new Date(complaint.createdAt || complaint.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    
+                    <h4 style={{ fontSize: '1.05rem', fontWeight:600, marginBottom:'0.75rem', lineHeight:1.4, color: 'var(--text-bright)', flex: 1 }}>
+                      {complaint.description || complaint.issue || 'No description provided'}
+                    </h4>
+                    
+                    <div style={{ 
+                      display:'flex', justifyContent:'space-between', alignItems:'center', 
+                      marginTop:'0.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)' 
+                    }}>
+                      <div style={{ display:'flex', flexDirection: 'column', gap:'0.2rem', fontSize:'.8rem' }}>
+                        <span style={{ color: 'var(--text-dim)' }}>Reported by: <strong style={{ color: 'var(--text-primary)' }}>{complaint.tenantName || 'Unknown'}</strong></span>
+                        <span style={{ color: 'var(--text-dim)' }}>Room: <strong style={{ color: 'var(--text-primary)' }}>{complaint.roomNumber || 'N/A'}</strong></span>
                       </div>
+                      
                       {!isResolved && (
-                        <button className="btn btn-success btn-sm" onClick={() => handleResolve(complaint._id)}>
-                          <CheckCircle size={15} /> Resolve
+                        <button className="btn btn-success" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', borderRadius: '6px' }} onClick={() => handleResolve(complaint._id)}>
+                          <CheckCircle size={14} /> Resolve
                         </button>
                       )}
                     </div>

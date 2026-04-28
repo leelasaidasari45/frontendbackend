@@ -311,19 +311,29 @@ router.get('/complaints', async (req, res) => {
     const { hostelId } = req.query;
     const { data: complaints, error } = await supabase
        .from('complaints')
-       .select('*, users!tenant_id(name)')
+       .select('*, users!tenant_id(name, allocations(status, beds(rooms(room_number))))')
        .eq('hostel_id', hostelId)
        .order('created_at', { ascending: false });
 
     if (error) throw error;
     
-    res.json((complaints || []).map(c => ({
-      ...c,
-      _id: c.id,
-      tenantName: c.tenant_name || c.users?.name || 'Unknown',
-      roomNumber: c.room_number || 'N/A',
-      createdAt: c.created_at,
-    })));
+    res.json((complaints || []).map(c => {
+      let roomNumber = 'N/A';
+      if (c.users?.allocations && c.users.allocations.length > 0) {
+        const activeAlloc = c.users.allocations.find(a => a.status === 'active' || a.status === 'pending' || a.status === 'vacating') || c.users.allocations[0];
+        if (activeAlloc?.beds?.rooms?.room_number) {
+          roomNumber = activeAlloc.beds.rooms.room_number;
+        }
+      }
+
+      return {
+        ...c,
+        _id: c.id,
+        tenantName: c.users?.name || 'Unknown',
+        roomNumber: roomNumber,
+        createdAt: c.created_at,
+      };
+    }));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
