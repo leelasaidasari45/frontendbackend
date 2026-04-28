@@ -56,10 +56,6 @@ const AuthPage = () => {
 
   return (
     <div className="auth-page fade-in">
-      {/* Ambient orbs */}
-      <div className="auth-orb auth-orb-1" />
-      <div className="auth-orb auth-orb-2" />
-
       <div className="auth-card">
         {/* Left branding panel */}
         <div className="auth-branding">
@@ -71,14 +67,6 @@ const AuthPage = () => {
           <div className="auth-brand-body">
             <h2 className="auth-brand-headline">Your hostel,<br /><span className="text-gradient">reimagined.</span></h2>
             <p className="auth-brand-sub">The all-in-one platform for modern PG and hostel management.</p>
-            <div className="auth-features">
-              {['Multi-property dashboard', 'QR-based instant onboarding', 'Automated rent management', 'Real-time analytics'].map((f, i) => (
-                <div key={i} className="auth-feature-item">
-                  <CheckCircle size={16} color="#a78bfa" />
-                  <span>{f}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
@@ -138,7 +126,7 @@ const AuthPage = () => {
               </div>
             )}
 
-            <button type="submit" className="btn btn-primary w-full btn-lg" style={{marginTop:'.5rem'}} disabled={loading}>
+            <button type="submit" className="btn btn-primary w-full btn-lg" style={{marginTop:'1.5rem'}} disabled={loading}>
               {loading ? <Loader2 size={18} className="animate-spin" /> : isLogin ? <LogIn size={18} /> : <UserPlus size={18} />}
               {loading ? (isLogin ? 'Signing in...' : 'Creating account...') : (isLogin ? 'Sign in' : 'Create account')}
             </button>
@@ -153,7 +141,7 @@ const AuthPage = () => {
 
           <p className="auth-switch-text">
             {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
-            <button onClick={() => handleToggle(isLogin ? 'register' : 'login')} className="auth-switch-btn">
+            <button type="button" onClick={() => handleToggle(isLogin ? 'register' : 'login')} className="auth-switch-btn">
               {isLogin ? 'Create one' : 'Sign in'}
             </button>
           </p>
