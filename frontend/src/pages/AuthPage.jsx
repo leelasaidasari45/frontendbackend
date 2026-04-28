@@ -59,14 +59,26 @@ const AuthPage = () => {
       <div className="auth-card">
         {/* Left branding panel */}
         <div className="auth-branding">
-          <div className="auth-brand-top">
-            <div className="auth-logo-container">
-              <img src="/logo.png" alt="easyPG" className="auth-logo-img" />
-            </div>
+          {/* Centered Large Logo to fill the empty space */}
+          <div className="auth-brand-center">
+            <img src="/logo.png" alt="easyPG Logo Large" className="auth-logo-large" />
           </div>
+
           <div className="auth-brand-body">
-            <h2 className="auth-brand-headline">Your hostel,<br /><span className="text-gradient">reimagined.</span></h2>
+            <h2 className="auth-brand-headline">
+              <span style={{ fontSize: '1.2rem', color: '#a1a1aa', display: 'block', marginBottom: '0.25rem', fontWeight: '600' }}>easyPG</span>
+              Your hostel,<br /><span className="text-gradient">reimagined.</span>
+            </h2>
             <p className="auth-brand-sub">The all-in-one platform for modern PG and hostel management.</p>
+            
+            <div className="auth-features">
+              {['Multi-property dashboard', 'QR-based instant onboarding', 'Automated rent management', 'Real-time analytics'].map((f, i) => (
+                <div key={i} className="auth-feature-item">
+                  <CheckCircle size={16} color="#8b5cf6" />
+                  <span>{f}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
