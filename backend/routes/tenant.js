@@ -174,15 +174,18 @@ router.post('/complaints', async (req, res) => {
        return res.status(400).json({ message: 'Hostel association not found' });
     }
     
-    await supabase.from('complaints').insert([{
+    const { error: insertError } = await supabase.from('complaints').insert([{
       tenant_id: tenantId,
       hostel_id: hostelId,
       title: 'Complaint',
       description: issue,
-      tenant_name: tenantName || req.user.name || 'Unknown',
-      room_number: roomNumber || null,
       status: 'open'
     }]);
+
+    if (insertError) {
+      console.error("Complaint Insert Error:", insertError);
+      throw new Error(insertError.message || 'Failed to insert complaint');
+    }
     
     res.json({ message: 'Complaint submitted' });
   } catch (err) {
