@@ -170,15 +170,15 @@ const TenantsPage = () => {
                       <p className="text-muted" style={{ fontSize: '0.875rem' }}>Expected Join: <strong>{new Date(t.admissionDate).toLocaleDateString()}</strong></p>
                       <p className="text-muted" style={{ fontSize: '0.875rem' }}>Requested Room: <strong>{t.roomNumber}</strong></p>
 
-                      <div className="flex justify-between items-center mt-4">
-                        <button className="btn" style={{ padding: '0.5rem', background: 'transparent', color: 'var(--accent-primary)', fontSize: '0.85rem' }} onClick={() => setSelectedTenant(t)}>
+                      <div className="flex justify-between items-center mt-4" style={{ flexWrap: 'wrap', gap: '0.5rem' }}>
+                        <button className="btn" style={{ padding: '0.5rem', background: 'transparent', color: 'var(--accent-primary)', fontSize: '0.85rem', flexShrink: 0 }} onClick={() => setSelectedTenant(t)}>
                           View Details
                         </button>
-                        <div className="flex gap-2">
-                          <button className="btn" style={{ padding: '0.5rem 1rem', background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)' }} onClick={() => handleApprove(t._id)}>
+                        <div className="flex gap-2" style={{ flexWrap: 'wrap', flex: '1 1 auto', justifyContent: 'flex-end' }}>
+                          <button className="btn" style={{ padding: '0.5rem 1rem', background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)', flex: 1, minWidth: '100px' }} onClick={() => handleApprove(t._id)}>
                             <CheckCircle size={16} /> Approve
                           </button>
-                          <button className="btn" style={{ padding: '0.5rem 1rem', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)' }} onClick={() => handleReject(t._id)}>
+                          <button className="btn" style={{ padding: '0.5rem 1rem', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)', flex: 1, minWidth: '100px' }} onClick={() => handleReject(t._id)}>
                             <XCircle size={16} /> Reject
                           </button>
                         </div>
