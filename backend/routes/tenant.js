@@ -153,8 +153,26 @@ router.post('/pay', async (req, res) => {
 router.post('/complaints', async (req, res) => {
   try {
     const tenantId = req.user.id;
-    const hostelId = req.user.hostel_id;
+    let hostelId = req.user.hostel_id;
     const { issue, tenantName, roomNumber } = req.body;
+    
+    // Fallback: lookup active allocation to find hostel_id
+    if (!hostelId) {
+      const { data: allocations } = await supabase
+        .from('allocations')
+        .select('beds(rooms(floors(hostel_id)))')
+        .eq('tenant_id', tenantId)
+        .in('status', ['active', 'pending', 'vacating'])
+        .maybeSingle();
+      
+      if (allocations?.beds?.rooms?.floors?.hostel_id) {
+        hostelId = allocations.beds.rooms.floors.hostel_id;
+      }
+    }
+
+    if (!hostelId) {
+       return res.status(400).json({ message: 'Hostel association not found' });
+    }
     
     await supabase.from('complaints').insert([{
       tenant_id: tenantId,
